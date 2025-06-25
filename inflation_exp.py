@@ -1,6 +1,9 @@
 import os
 import json
 import random
+import re
+import argparse
+import traceback
 import numpy as np
 import pandas as pd
 import sqlite3
@@ -329,6 +332,7 @@ class Persona:
     financial_literacy: int  # 1-10 scale
     media_exposure: int  # 1-10 scale
     risk_attitude: int  # 1-10 scale (1: risk averse, 10: risk seeking)
+    expenditure_bracket: str  # Monthly expenditure bracket
     
     def to_dict(self) -> Dict:
         """Convert persona to dictionary"""
@@ -343,7 +347,8 @@ class Persona:
             'urban_rural': self.urban_rural,
             'financial_literacy': self.financial_literacy,
             'media_exposure': self.media_exposure,
-            'risk_attitude': self.risk_attitude
+            'risk_attitude': self.risk_attitude,
+            'expenditure_bracket': self.expenditure_bracket
         }
     
     def to_prompt_description(self) -> str:
@@ -353,6 +358,7 @@ class Persona:
         return f"""
         You are a {self.age}-year-old {self.gender} living in a {self.urban_rural} area in {self.province}, {self.region} region of Indonesia. 
         Your highest education level is {self.education} and your monthly income is around Rp {self.income:,.0f}, which is considered {income_level} income.
+        Your household expenditure bracket is {self.expenditure_bracket} per month.
         Your financial literacy level is {self.financial_literacy}/10 and your exposure to economic news media is {self.media_exposure}/10.
         You have a {self.risk_attitude}/10 risk attitude (where 1 is very cautious and 10 is very comfortable with risk).
         """
@@ -363,50 +369,213 @@ class PersonaGenerator:
     
     def __init__(self):
         """Initialize the persona generator with Indonesian demographic data"""
-        # Indonesian demographic data (simplified)
-        self.age_distribution = {
-            'mu': 29.7,  # Median age
-            'sigma': 15,  # Standard deviation
-            'min': 20,
-            'max': 80
+        # Province-specific demographic data from survey table
+        self.province_demographics = {
+            'North Sumatra': {
+                'region': 'Sumatra',
+                'expenditure': [(52.92, '1-2 Juta'), (28.76, '2.1-3 Juta'), (11.29, '3.1-4 Juta'), (4.60, '4.1-5 Juta'), (0.94, '5.1-6 Juta'), (1.13, '> 6 Juta')],
+                'education': [(78.64, 'Senior High School'), (6.41, 'Diploma'), (13.93, "Bachelor's Degree"), (1.02, "Master's Degree")],
+                'age': [(33.52, '20-30'), (25.20, '31-40'), (19.69, '41-50'), (12.66, '51-60'), (8.92, '> 60')]
+            },
+            'West Sumatra': {
+                'region': 'Sumatra',
+                'expenditure': [(37.94, '1-2 Juta'), (34.24, '2.1-3 Juta'), (17.21, '3.1-4 Juta'), (6.62, '4.1-5 Juta'), (3.47, '5.1-6 Juta'), (2.34, '> 6 Juta')],
+                'education': [(77.09, 'Senior High School'), (7.64, 'Diploma'), (13.67, "Bachelor's Degree"), (1.61, "Master's Degree")],
+                'age': [(34.03, '20-30'), (23.33, '31-40'), (19.42, '41-50'), (13.72, '51-60'), (9.31, '> 60')]
+            },
+            'South Sumatra': {
+                'region': 'Sumatra',
+                'expenditure': [(44.82, '1-2 Juta'), (32.48, '2.1-3 Juta'), (12.34, '3.1-4 Juta'), (5.10, '4.1-5 Juta'), (3.56, '5.1-6 Juta'), (1.71, '> 6 Juta')],
+                'education': [(75.82, 'Senior High School'), (7.92, 'Diploma'), (15.01, "Bachelor's Degree"), (1.25, "Master's Degree")],
+                'age': [(32.55, '20-30'), (24.75, '31-40'), (19.69, '41-50'), (13.45, '51-60'), (9.56, '> 60')]
+            },
+            'Bangka Belitung': {
+                'region': 'Sumatra',
+                'expenditure': [(40.64, '1-2 Juta'), (32.03, '2.1-3 Juta'), (14.79, '3.1-4 Juta'), (8.24, '4.1-5 Juta'), (2.50, '5.1-6 Juta'), (1.80, '> 6 Juta')],
+                'education': [(76.49, 'Senior High School'), (9.65, 'Diploma'), (12.89, "Bachelor's Degree"), (0.97, "Master's Degree")],
+                'age': [(33.30, '20-30'), (25.70, '31-40'), (18.12, '41-50'), (13.72, '51-60'), (9.16, '> 60')]
+            },
+            'Lampung': {
+                'region': 'Sumatra',
+                'expenditure': [(48.44, '1-2 Juta'), (30.33, '2.1-3 Juta'), (10.42, '3.1-4 Juta'), (6.06, '4.1-5 Juta'), (2.49, '5.1-6 Juta'), (2.26, '> 6 Juta')],
+                'education': [(74.77, 'Senior High School'), (8.08, 'Diploma'), (15.85, "Bachelor's Degree"), (1.31, "Master's Degree")],
+                'age': [(33.01, '20-30'), (26.05, '31-40'), (20.12, '41-50'), (12.14, '51-60'), (8.68, '> 60')]
+            },
+            'West Java': {
+                'region': 'Java',
+                'expenditure': [(49.52, '1-2 Juta'), (29.41, '2.1-3 Juta'), (10.40, '3.1-4 Juta'), (6.11, '4.1-5 Juta'), (1.50, '5.1-6 Juta'), (1.58, '> 6 Juta')],
+                'education': [(70.20, 'Senior High School'), (10.65, 'Diploma'), (17.27, "Bachelor's Degree"), (1.88, "Master's Degree")],
+                'age': [(31.43, '20-30'), (26.23, '31-40'), (15.50, '41-50'), (12.94, '51-60'), (9.85, '> 60')]
+            },
+            'Banten': {
+                'region': 'Java',
+                'expenditure': [(43.69, '1-2 Juta'), (34.45, '2.1-3 Juta'), (12.97, '3.1-4 Juta'), (3.46, '4.1-5 Juta'), (2.31, '5.1-6 Juta'), (2.72, '> 6 Juta')],
+                'education': [(77.95, 'Senior High School'), (7.50, 'Diploma'), (12.96, "Bachelor's Degree"), (1.59, "Master's Degree")],
+                'age': [(33.76, '20-30'), (26.11, '31-40'), (20.07, '41-50'), (13.47, '51-60'), (6.57, '> 60')]
+            },
+            'Central Java': {
+                'region': 'Java',
+                'expenditure': [(54.53, '1-2 Juta'), (28.05, '2.1-3 Juta'), (11.77, '3.1-4 Juta'), (3.36, '4.1-5 Juta'), (1.47, '5.1-6 Juta'), (0.82, '> 6 Juta')],
+                'education': [(72.24, 'Senior High School'), (9.28, 'Diploma'), (16.73, "Bachelor's Degree"), (1.75, "Master's Degree")],
+                'age': [(29.44, '20-30'), (24.88, '31-40'), (21.09, '41-50'), (14.34, '51-60'), (10.25, '> 60')]
+            },
+            'East Java': {
+                'region': 'Java',
+                'expenditure': [(39.07, '1-2 Juta'), (30.13, '2.1-3 Juta'), (15.70, '3.1-4 Juta'), (7.92, '4.1-5 Juta'), (3.36, '5.1-6 Juta'), (3.83, '> 6 Juta')],
+                'education': [(75.42, 'Senior High School'), (5.39, 'Diploma'), (17.84, "Bachelor's Degree"), (1.36, "Master's Degree")],
+                'age': [(29.39, '20-30'), (26.84, '31-40'), (20.42, '41-50'), (13.43, '51-60'), (9.92, '> 60')]
+            },
+            'Jakarta': {
+                'region': 'Java',
+                'expenditure': [(42.68, '1-2 Juta'), (29.28, '2.1-3 Juta'), (14.73, '3.1-4 Juta'), (6.48, '4.1-5 Juta'), (3.22, '5.1-6 Juta'), (3.62, '> 6 Juta')],
+                'education': [(72.38, 'Senior High School'), (8.89, 'Diploma'), (16.17, "Bachelor's Degree"), (1.89, "Master's Degree")],
+                'age': [(33.20, '20-30'), (25.16, '31-40'), (19.41, '41-50'), (14.60, '51-60'), (7.63, '> 60')]
+            },
+            'Yogyakarta': {
+                'region': 'Java',
+                'expenditure': [(61.62, '1-2 Juta'), (24.13, '2.1-3 Juta'), (9.72, '3.1-4 Juta'), (2.25, '4.1-5 Juta'), (0.69, '5.1-6 Juta'), (1.59, '> 6 Juta')],
+                'education': [(69.13, 'Senior High School'), (9.60, 'Diploma'), (19.26, "Bachelor's Degree"), (2.00, "Master's Degree")],
+                'age': [(31.38, '20-30'), (21.02, '31-40'), (19.41, '41-50'), (14.67, '51-60'), (13.52, '> 60')]
+            },
+            'West Kalimantan': {
+                'region': 'Kalimantan',
+                'expenditure': [(48.00, '1-2 Juta'), (29.00, '2.1-3 Juta'), (11.72, '3.1-4 Juta'), (7.91, '4.1-5 Juta'), (1.37, '5.1-6 Juta'), (2.00, '> 6 Juta')],
+                'education': [(76.41, 'Senior High School'), (8.35, 'Diploma'), (13.94, "Bachelor's Degree"), (1.30, "Master's Degree")],
+                'age': [(32.39, '20-30'), (25.60, '31-40'), (19.51, '41-50'), (12.39, '51-60'), (10.11, '> 60')]
+            },
+            'South Kalimantan': {
+                'region': 'Kalimantan',
+                'expenditure': [(52.87, '1-2 Juta'), (28.01, '2.1-3 Juta'), (11.92, '3.1-4 Juta'), (4.69, '4.1-5 Juta'), (2.15, '5.1-6 Juta'), (0.39, '> 6 Juta')],
+                'education': [(77.93, 'Senior High School'), (6.69, 'Diploma'), (14.19, "Bachelor's Degree"), (1.19, "Master's Degree")],
+                'age': [(30.86, '20-30'), (27.02, '31-40'), (20.66, '41-50'), (12.51, '51-60'), (8.35, '> 60')]
+            },
+            'East Kalimantan': {
+                'region': 'Kalimantan',
+                'expenditure': [(42.61, '1-2 Juta'), (32.99, '2.1-3 Juta'), (16.66, '3.1-4 Juta'), (4.71, '4.1-5 Juta'), (2.16, '5.1-6 Juta'), (0.87, '> 6 Juta')],
+                'education': [(78.01, 'Senior High School'), (6.92, 'Diploma'), (13.70, "Bachelor's Degree"), (1.37, "Master's Degree")],
+                'age': [(33.79, '20-30'), (28.84, '31-40'), (20.67, '41-50'), (10.70, '51-60'), (6.01, '> 60')]
+            },
+            'Central Kalimantan': {
+                'region': 'Kalimantan',
+                'expenditure': [(46.88, '1-2 Juta'), (32.20, '2.1-3 Juta'), (13.95, '3.1-4 Juta'), (4.05, '4.1-5 Juta'), (2.39, '5.1-6 Juta'), (0.53, '> 6 Juta')],
+                'education': [(74.40, 'Senior High School'), (7.66, 'Diploma'), (19.21, "Bachelor's Degree"), (1.73, "Master's Degree")],
+                'age': [(36.28, '20-30'), (27.24, '31-40'), (19.24, '41-50'), (11.72, '51-60'), (6.51, '> 60')]
+            },
+            'North Sulawesi': {
+                'region': 'Sulampua',
+                'expenditure': [(45.56, '1-2 Juta'), (30.55, '2.1-3 Juta'), (14.73, '3.1-4 Juta'), (4.42, '4.1-5 Juta'), (2.25, '5.1-6 Juta'), (2.43, '> 6 Juta')],
+                'education': [(77.51, 'Senior High School'), (4.88, 'Diploma'), (15.72, "Bachelor's Degree"), (1.89, "Master's Degree")],
+                'age': [(28.43, '20-30'), (25.27, '31-40'), (21.17, '41-50'), (14.59, '51-60'), (10.54, '> 60')]
+            },
+            'South Sulawesi': {
+                'region': 'Sulampua',
+                'expenditure': [(38.18, '1-2 Juta'), (29.47, '2.1-3 Juta'), (14.86, '3.1-4 Juta'), (9.06, '4.1-5 Juta'), (3.49, '5.1-6 Juta'), (4.54, '> 6 Juta')],
+                'education': [(73.78, 'Senior High School'), (6.06, 'Diploma'), (18.05, "Bachelor's Degree"), (2.11, "Master's Degree")],
+                'age': [(36.57, '20-30'), (25.19, '31-40'), (18.72, '41-50'), (11.66, '51-60'), (8.86, '> 60')]
+            },
+            'Central Sulawesi': {
+                'region': 'Sulampua',
+                'expenditure': [(50.27, '1-2 Juta'), (29.65, '2.1-3 Juta'), (11.60, '3.1-4 Juta'), (5.14, '4.1-5 Juta'), (1.37, '5.1-6 Juta'), (1.96, '> 6 Juta')],
+                'education': [(74.76, 'Senior High School'), (6.40, 'Diploma'), (16.95, "Bachelor's Degree"), (1.89, "Master's Degree")],
+                'age': [(35.69, '20-30'), (24.55, '31-40'), (19.56, '41-50'), (12.14, '51-60'), (6.99, '> 60')]
+            },
+            'Southeast Sulawesi': {
+                'region': 'Sulampua',
+                'expenditure': [(52.32, '1-2 Juta'), (25.47, '2.1-3 Juta'), (15.20, '3.1-4 Juta'), (4.67, '4.1-5 Juta'), (1.55, '5.1-6 Juta'), (0.79, '> 6 Juta')],
+                'education': [(73.97, 'Senior High School'), (6.63, 'Diploma'), (17.36, "Bachelor's Degree"), (2.03, "Master's Degree")],
+                'age': [(40.50, '20-30'), (26.15, '31-40'), (17.97, '41-50'), (9.60, '51-60'), (5.78, '> 60')]
+            },
+            'Gorontalo': {
+                'region': 'Sulampua',
+                'expenditure': [(67.89, '1-2 Juta'), (21.90, '2.1-3 Juta'), (6.75, '3.1-4 Juta'), (1.91, '4.1-5 Juta'), (1.18, '5.1-6 Juta'), (0.36, '> 6 Juta')],
+                'education': [(76.82, 'Senior High School'), (6.57, 'Diploma'), (14.45, "Bachelor's Degree"), (2.16, "Master's Degree")],
+                'age': [(30.54, '20-30'), (26.28, '31-40'), (20.78, '41-50'), (13.02, '51-60'), (9.38, '> 60')]
+            },
+            'West Sulawesi': {
+                'region': 'Sulampua',
+                'expenditure': [(69.92, '1-2 Juta'), (22.11, '2.1-3 Juta'), (6.02, '3.1-4 Juta'), (1.14, '4.1-5 Juta'), (0.11, '5.1-6 Juta'), (0.69, '> 6 Juta')],
+                'education': [(73.28, 'Senior High School'), (9.14, 'Diploma'), (16.37, "Bachelor's Degree"), (1.22, "Master's Degree")],
+                'age': [(32.69, '20-30'), (28.63, '31-40'), (19.06, '41-50'), (10.78, '51-60'), (8.84, '> 60')]
+            },
+            'Maluku': {
+                'region': 'Sulampua',
+                'expenditure': [(47.10, '1-2 Juta'), (28.16, '2.1-3 Juta'), (14.72, '3.1-4 Juta'), (6.70, '4.1-5 Juta'), (1.88, '5.1-6 Juta'), (1.43, '> 6 Juta')],
+                'education': [(78.40, 'Senior High School'), (6.43, 'Diploma'), (13.87, "Bachelor's Degree"), (1.30, "Master's Degree")],
+                'age': [(35.67, '20-30'), (24.98, '31-40'), (18.28, '41-50'), (11.74, '51-60'), (9.33, '> 60')]
+            },
+            'North Maluku': {
+                'region': 'Sulampua',
+                'expenditure': [(46.56, '1-2 Juta'), (33.90, '2.1-3 Juta'), (14.72, '3.1-4 Juta'), (2.84, '4.1-5 Juta'), (1.34, '5.1-6 Juta'), (0.64, '> 6 Juta')],
+                'education': [(78.25, 'Senior High School'), (5.36, 'Diploma'), (15.14, "Bachelor's Degree"), (1.26, "Master's Degree")],
+                'age': [(39.32, '20-30'), (26.68, '31-40'), (17.43, '41-50'), (9.92, '51-60'), (6.65, '> 60')]
+            },
+            'West Papua': {
+                'region': 'Sulampua',
+                'expenditure': [(34.10, '1-2 Juta'), (35.35, '2.1-3 Juta'), (19.95, '3.1-4 Juta'), (5.94, '4.1-5 Juta'), (1.84, '5.1-6 Juta'), (2.82, '> 6 Juta')],
+                'education': [(75.64, 'Senior High School'), (6.28, 'Diploma'), (16.35, "Bachelor's Degree"), (1.73, "Master's Degree")],
+                'age': [(38.95, '20-30'), (28.36, '31-40'), (18.55, '41-50'), (9.19, '51-60'), (4.95, '> 60')]
+            },
+            'Bali': {
+                'region': 'Bali-Nusa',
+                'expenditure': [(51.99, '1-2 Juta'), (31.20, '2.1-3 Juta'), (9.59, '3.1-4 Juta'), (5.29, '4.1-5 Juta'), (1.33, '5.1-6 Juta'), (0.60, '> 6 Juta')],
+                'education': [(71.05, 'Senior High School'), (10.01, 'Diploma'), (17.32, "Bachelor's Degree"), (1.62, "Master's Degree")],
+                'age': [(22.07, '20-30'), (30.85, '31-40'), (20.32, '41-50'), (19.98, '51-60'), (6.78, '> 60')]
+            },
+            'West Nusa Tenggara': {
+                'region': 'Bali-Nusa',
+                'expenditure': [(47.19, '1-2 Juta'), (33.58, '2.1-3 Juta'), (12.39, '3.1-4 Juta'), (4.04, '4.1-5 Juta'), (2.34, '5.1-6 Juta'), (0.46, '> 6 Juta')],
+                'education': [(74.33, 'Senior High School'), (5.96, 'Diploma'), (17.92, "Bachelor's Degree"), (1.79, "Master's Degree")],
+                'age': [(35.43, '20-30'), (25.12, '31-40'), (18.45, '41-50'), (11.30, '51-60'), (9.70, '> 60')]
+            },
+            'East Nusa Tenggara': {
+                'region': 'Bali-Nusa',
+                'expenditure': [(36.32, '1-2 Juta'), (27.95, '2.1-3 Juta'), (9.80, '3.1-4 Juta'), (3.91, '4.1-5 Juta'), (0.75, '5.1-6 Juta'), (1.27, '> 6 Juta')],
+                'education': [(76.76, 'Senior High School'), (5.75, 'Diploma'), (15.92, "Bachelor's Degree"), (1.57, "Master's Degree")],
+                'age': [(41.20, '20-30'), (24.67, '31-40'), (17.90, '41-50'), (9.70, '51-60'), (6.53, '> 60')]
+            },
+            'Riau': {
+                'region': 'Sumatra',
+                'expenditure': [(36.81, '1-2 Juta'), (32.47, '2.1-3 Juta'), (14.79, '3.1-4 Juta'), (7.94, '4.1-5 Juta'), (3.79, '5.1-6 Juta'), (3.30, '> 6 Juta')],
+                'education': [(77.13, 'Senior High School'), (7.76, 'Diploma'), (13.83, "Bachelor's Degree"), (1.28, "Master's Degree")],
+                'age': [(37.31, '20-30'), (28.11, '31-40'), (18.68, '41-50'), (9.91, '51-60'), (5.99, '> 60')]
+            },
+            'Riau Islands': {
+                'region': 'Sumatra',
+                'expenditure': [(39.37, '1-2 Juta'), (30.63, '2.1-3 Juta'), (16.19, '3.1-4 Juta'), (7.37, '4.1-5 Juta'), (4.47, '5.1-6 Juta'), (1.98, '> 6 Juta')],
+                'education': [(86.47, 'Senior High School'), (6.08, 'Diploma'), (7.08, "Bachelor's Degree"), (0.37, "Master's Degree")],
+                'age': [(44.37, '20-30'), (34.30, '31-40'), (13.79, '41-50'), (5.06, '51-60'), (2.47, '> 60')]
+            },
+            'Jambi': {
+                'region': 'Sumatra',
+                'expenditure': [(40.93, '1-2 Juta'), (18.37, '2.1-3 Juta'), (9.14, '3.1-4 Juta'), (2.64, '4.1-5 Juta'), (1.57, '5.1-6 Juta'), (2.16, '> 6 Juta')],
+                'education': [(76.60, 'Senior High School'), (7.70, 'Diploma'), (14.57, "Bachelor's Degree"), (1.12, "Master's Degree")],
+                'age': [(32.18, '20-30'), (22.47, '31-40'), (20.16, '41-50'), (16.93, '51-60'), (8.26, '> 60')]
+            },
+            'Bengkulu': {
+                'region': 'Sumatra',
+                'expenditure': [(44.20, '1-2 Juta'), (32.91, '2.1-3 Juta'), (16.52, '3.1-4 Juta'), (4.34, '4.1-5 Juta'), (1.09, '5.1-6 Juta'), (0.94, '> 6 Juta')],
+                'education': [(73.59, 'Senior High School'), (6.91, 'Diploma'), (17.87, "Bachelor's Degree"), (1.63, "Master's Degree")],
+                'age': [(35.84, '20-30'), (25.79, '31-40'), (20.64, '41-50'), (11.40, '51-60'), (6.33, '> 60')]
+            },
+            'Aceh': {
+                'region': 'Sumatra',
+                'expenditure': [(46.77, '1-2 Juta'), (30.78, '2.1-3 Juta'), (16.14, '3.1-4 Juta'), (3.39, '4.1-5 Juta'), (1.58, '5.1-6 Juta'), (1.34, '> 6 Juta')],
+                'education': [(76.85, 'Senior High School'), (9.38, 'Diploma'), (12.76, "Bachelor's Degree"), (1.01, "Master's Degree")],
+                'age': [(33.39, '20-30'), (27.22, '31-40'), (20.33, '41-50'), (11.73, '51-60'), (7.33, '> 60')]
+            }
         }
         
+        # Default distributions for provinces not in the detailed list
+        self.default_distributions = {
+            'expenditure': [(50.0, '1-2 Juta'), (25.0, '2.1-3 Juta'), (12.0, '3.1-4 Juta'), (8.0, '4.1-5 Juta'), (3.0, '5.1-6 Juta'), (2.0, '> 6 Juta')],
+            'education': [(75.0, 'Senior High School'), (8.0, 'Diploma'), (15.0, "Bachelor's Degree"), (2.0, "Master's Degree")],
+            'age': [(32.0, '20-30'), (26.0, '31-40'), (20.0, '41-50'), (13.0, '51-60'), (9.0, '> 60')]
+        }
+        
+        # Gender distribution (national average)
         self.gender_distribution = {
             'Male': 0.5,
             'Female': 0.5
-        }
-        
-        self.education_distribution = {
-            'Primary School': 0.25,
-            'Junior High School': 0.22,
-            'Senior High School': 0.35,
-            'Diploma': 0.05,
-            "Bachelor's Degree": 0.10,
-            "Master's Degree": 0.02,
-            'Doctorate': 0.01
-        }
-        
-        # Regional data
-        self.regions = {
-            'Java': ['Jakarta', 'West Java', 'Central Java', 'East Java', 'Yogyakarta', 'Banten'],
-            'Sumatra': ['Aceh', 'North Sumatra', 'West Sumatra', 'Riau', 'Jambi', 'South Sumatra', 
-                       'Bengkulu', 'Lampung', 'Bangka Belitung', 'Riau Islands'],
-            'Kalimantan': ['West Kalimantan', 'Central Kalimantan', 'South Kalimantan', 'East Kalimantan', 
-                          'North Kalimantan'],
-            'Bali-Nusa': ['Bali', 'West Nusa Tenggara', 'East Nusa Tenggara'],
-            'Sulampua': [
-                'North Sulawesi', 'Central Sulawesi', 'South Sulawesi', 'Southeast Sulawesi', 'Gorontalo', 'West Sulawesi',
-                'Maluku', 'North Maluku', 'Papua', 'West Papua'
-            ]
-        }
-        
-        # Region population ratios (approximate)
-        self.region_distribution = {
-            'Java': 0.56,
-            'Sumatra': 0.22,
-            'Kalimantan': 0.06,
-            'Bali-Nusa': 0.06,
-            'Sulampua': 0.10  # Sulawesi + Maluku-Papua 0.07 + 0.03
         }
         
         # Urban/rural distribution
@@ -415,10 +584,85 @@ class PersonaGenerator:
             'Rural': 0.44
         }
         
-    def generate_age(self) -> int:
-        """Generate a realistic age based on Indonesian demographics"""
-        age = int(np.random.normal(self.age_distribution['mu'], self.age_distribution['sigma']))
-        return max(self.age_distribution['min'], min(age, self.age_distribution['max']))
+    def sample_from_distribution(self, distribution: List[Tuple[float, str]]) -> str:
+        """Sample from a weighted distribution"""
+        weights, values = zip(*distribution)
+        return random.choices(values, weights=weights)[0]
+    
+    def generate_province_and_region(self) -> Tuple[str, str]:
+        """Generate province and region based on available data"""
+        province = random.choice(list(self.province_demographics.keys()))
+        region = self.province_demographics[province]['region']
+        return province, region
+    
+    def generate_expenditure_bracket(self, province: str) -> str:
+        """Generate expenditure bracket based on province distribution"""
+        province_data = self.province_demographics.get(province)
+        if province_data:
+            return self.sample_from_distribution(province_data['expenditure'])
+        else:
+            return self.sample_from_distribution(self.default_distributions['expenditure'])
+    
+    def generate_education_from_province(self, province: str) -> str:
+        """Generate education level based on province distribution"""
+        province_data = self.province_demographics.get(province)
+        if province_data:
+            return self.sample_from_distribution(province_data['education'])
+        else:
+            return self.sample_from_distribution(self.default_distributions['education'])
+    
+    def generate_age_from_province(self, province: str) -> int:
+        """Generate age based on province distribution"""
+        province_data = self.province_demographics.get(province)
+        if province_data:
+            age_bracket = self.sample_from_distribution(province_data['age'])
+        else:
+            age_bracket = self.sample_from_distribution(self.default_distributions['age'])
+        
+        # Convert age bracket to actual age
+        age_ranges = {
+            '20-30': (20, 30),
+            '31-40': (31, 40),
+            '41-50': (41, 50),
+            '51-60': (51, 60),
+            '> 60': (61, 80)
+        }
+        
+        min_age, max_age = age_ranges[age_bracket]
+        return random.randint(min_age, max_age)
+    
+    def generate_income_from_expenditure(self, expenditure_bracket: str, education: str, urban_rural: str) -> float:
+        """Generate income based on expenditure bracket, education, and location"""
+        # Map expenditure brackets to income ranges (in IDR)
+        expenditure_to_income = {
+            '1-2 Juta': (1_500_000, 3_000_000),
+            '2.1-3 Juta': (2_500_000, 4_500_000),
+            '3.1-4 Juta': (3_500_000, 6_000_000),
+            '4.1-5 Juta': (4_500_000, 7_500_000),
+            '5.1-6 Juta': (5_500_000, 9_000_000),
+            '> 6 Juta': (7_000_000, 20_000_000)
+        }
+        
+        base_min, base_max = expenditure_to_income[expenditure_bracket]
+        
+        # Adjust for education (higher education = potentially higher income)
+        education_multipliers = {
+            'Senior High School': 1.0,
+            'Diploma': 1.2,
+            "Bachelor's Degree": 1.5,
+            "Master's Degree": 2.0
+        }
+        
+        multiplier = education_multipliers.get(education, 1.0)
+        
+        # Adjust for urban/rural
+        location_multiplier = 1.2 if urban_rural == 'Urban' else 0.9
+        
+        # Generate income within the range
+        income_min = base_min * multiplier * location_multiplier
+        income_max = base_max * multiplier * location_multiplier
+        
+        return random.uniform(income_min, income_max)
     
     def generate_gender(self) -> str:
         """Generate gender based on distribution"""
@@ -427,73 +671,18 @@ class PersonaGenerator:
             weights=list(self.gender_distribution.values())
         )[0]
     
-    def generate_education(self, age: int) -> str:
-        """Generate education level considering age"""
-        # Adjust weights based on age
-        weights = self.education_distribution.copy()
-        
-        if age < 25:
-            # Younger people less likely to have advanced degrees
-            weights["Master's Degree"] *= 0.3
-            weights['Doctorate'] *= 0.1
-        elif age > 50:
-            # Older people more likely to have only basic education
-            weights['Primary School'] *= 1.5
-            weights['Junior High School'] *= 1.2
-            weights["Bachelor's Degree"] *= 0.8
-            
-        # Normalize weights
-        total = sum(weights.values())
-        weights = {k: v/total for k, v in weights.items()}
-        
-        return random.choices(
-            list(weights.keys()),
-            weights=list(weights.values())
-        )[0]
-    
-    def generate_income(self, education: str, urban_rural: str) -> float:
-        """Generate monthly income in IDR based on education and location"""
-        # Base income distributions by education level (in IDR)
-        base_income = {
-            'Primary School': {'mu': 2_500_000, 'sigma': 1_000_000},
-            'Junior High School': {'mu': 3_500_000, 'sigma': 1_500_000},
-            'Senior High School': {'mu': 5_000_000, 'sigma': 2_000_000},
-            'Diploma': {'mu': 6_500_000, 'sigma': 2_500_000},
-            "Bachelor's Degree": {'mu': 10_000_000, 'sigma': 4_000_000},
-            "Master's Degree": {'mu': 15_000_000, 'sigma': 5_000_000},
-            'Doctorate': {'mu': 25_000_000, 'sigma': 8_000_000}
-        }
-        
-        # Adjust for urban/rural
-        location_multiplier = 1.2 if urban_rural == 'Urban' else 0.8
-        
-        income_params = base_income[education]
-        income = np.random.normal(income_params['mu'] * location_multiplier, income_params['sigma'])
-        
-        # Ensure income is positive
-        return max(1_000_000, income)
-    
-    def generate_region_and_province(self) -> Tuple[str, str]:
-        """Generate region and province"""
-        region = random.choices(
-            list(self.region_distribution.keys()),
-            weights=list(self.region_distribution.values())
-        )[0]
-        
-        province = random.choice(self.regions[region])
-        
-        return region, province
-    
     def generate_urban_rural(self, province: str) -> str:
         """Generate urban/rural status with consideration for province"""
         # Adjust probabilities based on province
         urban_prob = self.urban_rural_distribution['Urban']
         
-        # Higher urban probability for Jakarta
+        # Higher urban probability for Jakarta and major provinces
         if province == 'Jakarta':
             urban_prob = 0.95
+        elif province in ['West Java', 'East Java', 'Central Java', 'Bali']:
+            urban_prob = 0.65
         # Lower urban probability for certain provinces
-        elif province in ['Papua', 'West Papua', 'East Nusa Tenggara']:
+        elif province in ['West Papua', 'East Nusa Tenggara', 'Maluku']:
             urban_prob = 0.30
             
         return 'Urban' if random.random() < urban_prob else 'Rural'
@@ -502,19 +691,16 @@ class PersonaGenerator:
         """Generate financial literacy score (1-10)"""
         # Base by education level
         edu_scores = {
-            'Primary School': 3,
-            'Junior High School': 4,
             'Senior High School': 5,
             'Diploma': 6,
             "Bachelor's Degree": 7,
-            "Master's Degree": 8,
-            'Doctorate': 9
+            "Master's Degree": 8
         }
         
         # Adjust by income (higher income = more financial exposure)
         income_factor = min(3, income / 10_000_000)
         
-        base_score = edu_scores[education]
+        base_score = edu_scores.get(education, 5)
         adjusted_score = base_score + (random.random() * 2 - 1) + (income_factor * 0.5)
         
         return max(1, min(10, int(adjusted_score)))
@@ -523,14 +709,11 @@ class PersonaGenerator:
         """Generate media exposure score (1-10)"""
         # Base by education
         base_score = {
-            'Primary School': 3,
-            'Junior High School': 4,
             'Senior High School': 5,
             'Diploma': 6,
             "Bachelor's Degree": 7,
-            "Master's Degree": 8,
-            'Doctorate': 8
-        }[education]
+            "Master's Degree": 8
+        }.get(education, 5)
         
         # Urban dwellers have higher media exposure
         location_factor = 1.2 if urban_rural == 'Urban' else 0.8
@@ -559,13 +742,16 @@ class PersonaGenerator:
         # Generate ID with timestamp and random string
         persona_id = f"P{int(datetime.now().timestamp())}{random.randint(1000, 9999)}"
         
-        # Generate attributes
-        age = self.generate_age()
+        # Generate province-based demographics first
+        province, region = self.generate_province_and_region()
+        
+        # Generate other attributes based on province-specific distributions
+        age = self.generate_age_from_province(province)
         gender = self.generate_gender()
-        region, province = self.generate_region_and_province()
+        education = self.generate_education_from_province(province)
+        expenditure_bracket = self.generate_expenditure_bracket(province)
         urban_rural = self.generate_urban_rural(province)
-        education = self.generate_education(age)
-        income = self.generate_income(education, urban_rural)
+        income = self.generate_income_from_expenditure(expenditure_bracket, education, urban_rural)
         financial_literacy = self.generate_financial_literacy(education, income)
         media_exposure = self.generate_media_exposure(education, urban_rural)
         risk_attitude = self.generate_risk_attitude(age, gender)
@@ -581,7 +767,8 @@ class PersonaGenerator:
             urban_rural=urban_rural,
             financial_literacy=financial_literacy,
             media_exposure=media_exposure,
-            risk_attitude=risk_attitude
+            risk_attitude=risk_attitude,
+            expenditure_bracket=expenditure_bracket
         )
     
     def generate_personas(self, count: int) -> List[Persona]:
