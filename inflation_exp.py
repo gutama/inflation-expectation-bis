@@ -68,7 +68,7 @@ class SurveyData(Base):
     age = Column(Integer)
     gender = Column(String(20))
     education = Column(String(50))
-    income_bracket = Column(String(50))
+    expenditure_bracket = Column(String(50))
     region = Column(String(100))
     province = Column(String(100))
     urban_rural = Column(String(20))
@@ -203,7 +203,7 @@ class DatabaseManager:
                     age=row.get('age'),
                     gender=row.get('gender'),
                     education=row.get('education'),
-                    income_bracket=row.get('income_bracket'),
+                    expenditure_bracket=row.get('expenditure_bracket'),
                     region=row.get('region'),
                     province=row.get('province'),
                     urban_rural=row.get('urban_rural'),
@@ -724,16 +724,16 @@ class PersonaGenerator:
     
     def generate_risk_attitude(self, age: int, gender: str) -> int:
         """Generate risk attitude score (1-10)"""
-        # Base score - normally distributed
-        base_score = np.random.normal(5, 2)
+        # Base score normally distributed and determined from Sahm (2007)
+        base_score = np.random.normal(5.5, 1.8)
         
         # Adjust by age (younger = more risk tolerant)
         age_factor = max(0, (50 - age) / 10)
         
-        # Adjust by gender (simplified generalizations for simulation purposes)
-        gender_factor = 0.5 if gender == 'Male' else -0.5
+        # According to Nelson (2014), risk aversion difference between gender is minimal 
+        # gender_factor = 0.5 if gender == 'Male' else -0.5
         
-        score = base_score + age_factor + gender_factor
+        score = base_score + age_factor
         
         return max(1, min(10, int(score)))
     
