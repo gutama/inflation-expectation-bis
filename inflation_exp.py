@@ -572,10 +572,10 @@ class PersonaGenerator:
             'age': [(32.0, '20-30'), (26.0, '31-40'), (20.0, '41-50'), (13.0, '51-60'), (9.0, '> 60')]
         }
         
-        # Gender distribution (national average)
-        self.gender_distribution = {
-            'Male': 0.5,
-            'Female': 0.5
+        # From Bank Indonesia April 2025 consumer survey
+        self.gender_distribution = { 
+            'Male': 0.389,
+            'Female': 0.611
         }
         
         # Urban/rural distribution
