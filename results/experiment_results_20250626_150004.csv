@@ -1,0 +1,181 @@
+persona_id,treatment_group,pre_expectation,post_expectation,expectation_change,persona_age,persona_gender,persona_education,persona_income,persona_region,persona_province,persona_urban_rural,persona_financial_literacy,persona_media_exposure,persona_risk_attitude,persona_expenditure_bracket,persona_expenditure
+P17509238361124,media_narrative_negative,5.0,4.0,-1.0,36,Male,Senior High School,7178165.922600566,Java,East Java,Urban,5,6,5,3.1-4 Juta,3493005.7870505885
+P17509238366676,policy_rate_decision,6.0,4.0,-2.0,49,Female,Senior High School,2648041.3155847834,Java,West Java,Rural,5,3,6,1-2 Juta,1904559.93100718
+P17509238368337,media_narrative_negative,5.0,4.0,-1.0,67,Female,Senior High School,9545314.668475956,Java,West Java,Urban,4,5,9,6.1-7 Juta,6324249.46739175
+P17509238366753,media_narrative_positive,5.0,3.8,-1.2000000000000002,44,Female,Senior High School,11882592.609065704,Java,Jakarta,Urban,5,6,8,> 8 Juta,12808004.105583701
+P17509238365670,control,5.0,5.0,0.0,39,Female,Diploma,8261915.136507634,Java,Banten,Rural,5,4,7,6.1-7 Juta,6455896.371927672
+P17509238362449,full_policy_context,4.2,4.0,-0.20000000000000018,27,Female,Bachelor's Degree,15407052.203282304,Java,Central Java,Urban,8,8,6,5.1-6 Juta,5809836.144120219
+P17509238369839,media_narrative_negative,5.0,4.0,-1.0,51,Female,Senior High School,7164596.7693454325,Java,West Java,Urban,4,5,6,4.1-5 Juta,4524721.984516538
+P17509238367986,policy_rate_decision,5.0,4.5,-0.5,23,Male,Senior High School,11673234.343680225,Java,Jakarta,Urban,4,5,6,6.1-7 Juta,6600894.882789493
+P17509238361891,current_inflation_target,4.0,4.0,0.0,29,Male,Bachelor's Degree,7807387.959439731,Sumatra,Aceh,Rural,8,5,8,4.1-5 Juta,4374148.629567249
+P17509238369556,full_policy_context,5.0,4.0,-1.0,32,Female,Master's Degree,3271833.633884752,Java,Central Java,Rural,8,5,3,1-2 Juta,1365192.1627561736
+P17509238364902,full_policy_context,6.0,4.0,-2.0,42,Female,Senior High School,2387414.396262535,Java,East Java,Rural,5,3,1,2.1-3 Juta,2745713.226826654
+P17509238368813,media_narrative_positive,5.0,4.0,-1.0,23,Female,Diploma,11233244.112006474,Sumatra,Aceh,Rural,5,5,6,6.1-7 Juta,6438805.180477366
+P17509238369571,media_narrative_negative,4.0,4.0,0.0,30,Male,Bachelor's Degree,8649051.574026752,Java,Jakarta,Urban,6,7,7,3.1-4 Juta,3571693.844934905
+P17509238364515,media_narrative_negative,5.0,4.0,-1.0,47,Female,Senior High School,4532776.564989269,Sulampua,Central Sulawesi,Urban,5,6,6,3.1-4 Juta,3381824.5995307937
+P17509238366364,control,5.0,5.5,0.5,45,Male,Senior High School,4893197.971446788,Sumatra,North Sumatra,Rural,4,3,6,3.1-4 Juta,3269594.7788545047
+P17509238364651,media_narrative_negative,5.0,4.0,-1.0,27,Female,Senior High School,4863992.007346225,Java,Banten,Urban,5,5,5,3.1-4 Juta,3667201.6679539923
+P17509238366327,full_policy_context,5.0,4.0,-1.0,42,Female,Diploma,9623134.102733858,Java,Banten,Urban,6,6,6,4.1-5 Juta,4995890.02157721
+P17509238363165,full_policy_context,5.0,4.0,-1.0,30,Female,Senior High School,2713905.8345173337,Kalimantan,West Kalimantan,Urban,5,6,4,1-2 Juta,1640904.0754772606
+P17509238366071,policy_rate_decision,5.0,5.0,0.0,25,Male,Senior High School,3236430.3724575727,Java,Jakarta,Urban,4,6,6,1-2 Juta,1676047.6638896256
+P17509238364964,full_policy_context,5.0,4.0,-1.0,40,Female,Bachelor's Degree,2806427.0354955597,Sumatra,Bengkulu,Rural,6,6,4,1-2 Juta,1996759.1769395596
+P17509238366642,full_policy_context,5.0,4.0,-1.0,30,Female,Senior High School,19606874.644562006,Sulampua,West Sulawesi,Urban,4,6,6,> 8 Juta,13890314.093315398
+P17509238363811,current_inflation_target,5.0,4.0,-1.0,44,Female,Diploma,9777890.984567963,Java,Banten,Rural,5,4,6,6.1-7 Juta,6307084.229539906
+P17509238366177,policy_rate_decision,5.0,4.0,-1.0,39,Male,Bachelor's Degree,4135033.479781622,Java,Yogyakarta,Rural,6,6,5,2.1-3 Juta,2213910.702322572
+P17509238367964,policy_rate_decision,4.0,4.0,0.0,57,Male,Master's Degree,13785465.32979747,Java,Central Java,Urban,8,8,6,4.1-5 Juta,4103335.110359286
+P17509238368485,media_narrative_negative,5.0,4.0,-1.0,29,Male,Senior High School,3947634.8653343604,Sulampua,Gorontalo,Rural,4,4,3,2.1-3 Juta,2738357.620434405
+P17509238363974,media_narrative_positive,6.0,4.0,-2.0,57,Male,Senior High School,1861268.12790893,Sumatra,North Sumatra,Urban,5,5,8,1-2 Juta,1312066.9417872094
+P17509238369529,control,4.0,4.0,0.0,37,Female,Bachelor's Degree,7031270.970892298,Sumatra,South Sumatra,Rural,7,5,7,4.1-5 Juta,4490968.738550139
+P17509238369701,media_narrative_negative,5.0,4.0,-1.0,42,Female,Senior High School,8626241.753853178,Java,West Java,Rural,5,4,4,7.1-8 Juta,7773143.361221958
+P17509238369254,media_narrative_negative,5.0,4.0,-1.0,39,Male,Senior High School,4449843.4380549695,Kalimantan,North Kalimantan,Urban,6,5,3,2.1-3 Juta,2232140.0637643607
+P17509238362492,control,4.0,4.0,0.0,59,Male,Bachelor's Degree,6498533.352103469,Java,East Java,Rural,7,6,7,3.1-4 Juta,3898527.4590679063
+P17509238364435,media_narrative_negative,5.0,4.0,-1.0,44,Female,Bachelor's Degree,4094529.526241052,Kalimantan,West Kalimantan,Urban,7,7,7,1-2 Juta,1078728.0398048724
+P17509238366753,current_inflation_target,4.0,3.8,-0.20000000000000018,29,Female,Bachelor's Degree,6657254.894439043,Java,Central Java,Rural,7,6,3,3.1-4 Juta,3647392.129258444
+P17509238365286,policy_rate_decision,6.0,6.0,0.0,24,Female,Senior High School,1511425.3055893765,Kalimantan,West Kalimantan,Rural,4,3,8,1-2 Juta,1108843.548718367
+P17509238368438,control,5.0,5.0,0.0,45,Male,Senior High School,8399288.620158577,Sumatra,Bengkulu,Urban,5,5,5,6.1-7 Juta,6963522.687043313
+P17509238361832,media_narrative_positive,5.0,4.0,-1.0,54,Male,Senior High School,4444302.053926736,Java,West Java,Urban,4,6,6,2.1-3 Juta,2170612.0788374864
+P17509238363124,control,5.0,5.0,0.0,70,Male,Senior High School,2326517.5988355367,Sumatra,Jambi,Rural,4,4,5,1-2 Juta,1779775.5109297514
+P17509238367878,current_inflation_target,5.0,4.0,-1.0,37,Male,Senior High School,4032257.007309962,Java,East Java,Urban,5,5,6,2.1-3 Juta,2977209.7141126674
+P17509238368525,full_policy_context,5.0,4.0,-1.0,50,Female,Bachelor's Degree,2514367.29071207,Sumatra,Lampung,Rural,6,5,4,1-2 Juta,1093184.6710860096
+P17509238369743,media_narrative_positive,5.0,4.0,-1.0,22,Female,Senior High School,10841428.153362656,Sulampua,Papua,Urban,6,5,7,7.1-8 Juta,7932140.173688134
+P17509238361541,current_inflation_target,4.0,4.0,0.0,50,Male,Bachelor's Degree,14348615.085048731,Java,Jakarta,Urban,7,8,6,6.1-7 Juta,6836983.976030011
+P17509238364544,control,6.0,5.0,-1.0,47,Male,Senior High School,3237532.669807215,Java,Banten,Rural,5,4,3,3.1-4 Juta,3810385.7997029535
+P17509238361122,full_policy_context,5.0,4.0,-1.0,38,Female,Senior High School,2977202.0764008323,Java,Banten,Urban,5,5,6,1-2 Juta,1357673.112289535
+P17509238369756,current_inflation_target,6.0,4.0,-2.0,36,Female,Senior High School,3736208.906957727,Sumatra,North Sumatra,Rural,4,3,5,2.1-3 Juta,2689840.394812721
+P17509238369192,policy_rate_decision,5.0,4.5,-0.5,37,Female,Diploma,6542422.27274084,Sumatra,Lampung,Rural,6,4,4,5.1-6 Juta,5374563.307308006
+P17509238368403,media_narrative_positive,5.0,4.0,-1.0,47,Female,Senior High School,4864557.634826167,Java,Jakarta,Urban,5,5,3,3.1-4 Juta,3166861.7621548725
+P17509238363888,media_narrative_negative,4.0,4.0,0.0,59,Female,Senior High School,7849612.586725505,Sumatra,North Sumatra,Urban,5,5,5,5.1-6 Juta,5564686.78182312
+P17509238364674,media_narrative_positive,5.0,4.0,-1.0,57,Male,Diploma,6922792.874939364,Sulampua,West Sulawesi,Urban,6,6,6,3.1-4 Juta,3976905.1315885102
+P17509238366996,full_policy_context,4.0,3.8,-0.20000000000000018,46,Male,Bachelor's Degree,8192636.512895763,Kalimantan,Central Kalimantan,Urban,7,7,5,4.1-5 Juta,4963114.73153632
+P17509238364043,media_narrative_negative,5.0,4.0,-1.0,54,Female,Senior High School,3524340.31933681,Java,West Java,Urban,5,5,4,2.1-3 Juta,2959155.7769729686
+P17509238369572,media_narrative_negative,4.0,4.0,0.0,42,Female,Bachelor's Degree,12168297.542052358,Sulampua,South Sulawesi,Urban,6,7,7,5.1-6 Juta,5453048.513986567
+P17509238361788,media_narrative_positive,5.0,4.0,-1.0,21,Female,Senior High School,8057914.589252371,Bali-Nusa,Bali,Rural,6,3,8,6.1-7 Juta,6472056.300803385
+P17509238364657,current_inflation_target,5.0,4.0,-1.0,28,Male,Senior High School,9801202.703106739,Sulampua,Gorontalo,Urban,6,6,7,5.1-6 Juta,5789402.066950323
+P17509238367851,control,5.0,5.0,0.0,23,Female,Bachelor's Degree,4897879.606048006,Sulampua,Gorontalo,Urban,6,8,6,1-2 Juta,1260658.6484376674
+P17509238362197,media_narrative_negative,4.0,4.0,0.0,51,Female,Bachelor's Degree,6493140.550059215,Java,East Java,Urban,8,8,3,3.1-4 Juta,3759419.3623882066
+P17509238367960,full_policy_context,4.0,4.0,0.0,23,Female,Bachelor's Degree,7139913.668635083,Java,Central Java,Urban,6,7,4,3.1-4 Juta,3988900.0255798185
+P17509238363478,policy_rate_decision,4.0,3.8,-0.20000000000000018,43,Female,Master's Degree,17064485.158730943,Java,Jakarta,Urban,9,9,2,4.1-5 Juta,4848725.834901707
+P17509238363873,media_narrative_positive,5.0,4.0,-1.0,40,Male,Senior High School,6328314.104921849,Kalimantan,West Kalimantan,Urban,5,5,8,3.1-4 Juta,3285590.263739991
+P17509238368465,full_policy_context,4.0,4.0,0.0,33,Male,Diploma,11214114.469856162,Sumatra,Riau Islands,Urban,7,7,2,6.1-7 Juta,6164141.154066596
+P17509238364459,media_narrative_positive,5.0,4.0,-1.0,41,Female,Senior High School,3429594.0908980416,Kalimantan,South Kalimantan,Urban,6,6,3,1-2 Juta,1105892.0796119669
+P17509238367936,media_narrative_positive,5.0,3.8,-1.2000000000000002,21,Male,Senior High School,6653627.144836433,Kalimantan,East Kalimantan,Urban,4,6,5,3.1-4 Juta,3132663.4516441408
+P17509238366463,media_narrative_negative,5.0,4.0,-1.0,58,Male,Senior High School,6759649.065362694,Sumatra,Riau Islands,Rural,5,3,5,5.1-6 Juta,5487900.294019073
+P17509238363190,full_policy_context,4.2,4.0,-0.20000000000000018,26,Male,Bachelor's Degree,11036428.97612491,Sumatra,Lampung,Urban,7,8,6,4.1-5 Juta,4697845.202562895
+P17509238361551,control,4.2,4.2,0.0,36,Male,Master's Degree,20120090.79948035,Java,East Java,Urban,9,10,7,5.1-6 Juta,5404814.344251262
+P17509238367627,control,5.5,5.0,-0.5,49,Male,Senior High School,4802806.1563642975,Java,Yogyakarta,Urban,5,6,5,3.1-4 Juta,3583601.6984900148
+P17509238366728,current_inflation_target,5.0,4.0,-1.0,56,Female,Senior High School,7033349.8988421885,Sumatra,Bangka Belitung,Rural,5,3,3,7.1-8 Juta,7731229.304066936
+P17509238362712,media_narrative_positive,4.0,3.8,-0.20000000000000018,43,Female,Bachelor's Degree,9266364.304594042,Java,West Java,Urban,8,8,6,3.1-4 Juta,3660385.1582518886
+P17509238366141,policy_rate_decision,5.0,4.0,-1.0,46,Male,Senior High School,9079883.399805913,Kalimantan,East Kalimantan,Urban,5,5,8,7.1-8 Juta,7359244.2770981975
+P17509238367491,policy_rate_decision,4.0,4.0,0.0,38,Male,Diploma,10161530.753382377,Java,West Java,Urban,6,7,5,5.1-6 Juta,5642960.302489489
+P17509238364264,media_narrative_negative,5.0,4.0,-1.0,49,Female,Senior High School,12239009.77433806,Sumatra,Lampung,Urban,6,6,6,6.1-7 Juta,6126853.379122175
+P17509238367110,control,6.0,6.0,0.0,74,Female,Senior High School,2619485.595697921,Sumatra,Riau,Urban,4,5,6,1-2 Juta,1729090.6751099583
+P17509238364527,full_policy_context,5.0,4.0,-1.0,46,Female,Diploma,7763691.529366739,Java,Jakarta,Urban,6,6,4,3.1-4 Juta,3560835.814422271
+P17509238362872,media_narrative_positive,6.0,4.0,-2.0,56,Female,Senior High School,2587654.584740336,Sulampua,West Papua,Rural,5,4,6,1-2 Juta,1608571.3667722428
+P17509238364382,full_policy_context,5.0,4.0,-1.0,58,Male,Senior High School,8170441.1076865755,Sulampua,West Sulawesi,Urban,5,5,3,4.1-5 Juta,4445449.689726374
+P17509238363390,current_inflation_target,4.0,4.0,0.0,38,Female,Diploma,17766943.3356293,Java,Central Java,Urban,7,7,4,> 8 Juta,11033608.450456552
+P17509238366772,policy_rate_decision,5.0,4.5,-0.5,63,Female,Diploma,7392713.108613063,Sulampua,North Sulawesi,Rural,6,4,8,4.1-5 Juta,4205633.268210547
+P17509238369377,control,6.0,6.0,0.0,34,Female,Senior High School,2062305.3123932625,Java,Yogyakarta,Rural,4,3,4,1-2 Juta,1949403.346281605
+P17509238367384,media_narrative_negative,5.0,4.0,-1.0,28,Male,Senior High School,12268738.42020614,Java,East Java,Urban,5,6,8,6.1-7 Juta,6593192.808150127
+P17509238363151,full_policy_context,5.0,4.0,-1.0,54,Female,Diploma,6275950.7029628195,Sumatra,South Sumatra,Urban,6,7,5,2.1-3 Juta,2279211.7715038653
+P17509238368933,full_policy_context,5.0,4.0,-1.0,59,Female,Bachelor's Degree,13410578.07146356,Java,Yogyakarta,Rural,6,6,4,7.1-8 Juta,7923795.147245795
+P17509238361389,media_narrative_positive,5.0,4.0,-1.0,31,Male,Senior High School,2300332.9671169277,Java,East Java,Urban,5,6,5,1-2 Juta,1102284.5917591294
+P17509238364824,current_inflation_target,4.0,4.0,0.0,54,Male,Bachelor's Degree,2811849.0833281055,Java,East Java,Urban,7,8,1,1-2 Juta,1808306.1616416732
+P17509238366335,full_policy_context,5.0,4.0,-1.0,35,Female,Diploma,6347734.205621478,Java,West Java,Rural,6,5,9,4.1-5 Juta,4327519.586593317
+P17509238367650,policy_rate_decision,5.0,4.0,-1.0,31,Female,Senior High School,8155809.840008028,Bali-Nusa,Bali,Rural,6,4,3,6.1-7 Juta,6125843.479966444
+P17509238366853,current_inflation_target,5.0,4.0,-1.0,42,Female,Senior High School,6183509.25265584,Sulampua,North Sulawesi,Urban,5,5,6,3.1-4 Juta,3164464.514942686
+P17509238362736,current_inflation_target,4.0,4.0,0.0,22,Male,Bachelor's Degree,6535353.13371038,Java,Banten,Rural,7,4,3,4.1-5 Juta,4631369.459492514
+P17509238362266,policy_rate_decision,6.0,6.0,0.0,53,Male,Senior High School,3146885.0105850664,Sulampua,South Sulawesi,Urban,4,5,7,1-2 Juta,1502874.6520135833
+P17509238365844,media_narrative_positive,6.0,4.0,-2.0,58,Female,Senior High School,3675458.487713471,Sulampua,West Papua,Rural,4,3,2,2.1-3 Juta,2764079.3082132526
+P17509238369193,policy_rate_decision,4.0,4.0,0.0,47,Female,Bachelor's Degree,10109631.617035298,Java,West Java,Rural,6,5,4,4.1-5 Juta,4239361.096009372
+P17509238361899,current_inflation_target,5.0,4.0,-1.0,20,Female,Diploma,5144616.304265853,Bali-Nusa,East Nusa Tenggara,Rural,6,5,7,3.1-4 Juta,3541156.792466138
+P17509238362435,control,5.0,5.0,0.0,33,Female,Senior High School,8077506.236005681,Sulampua,Maluku,Urban,5,6,4,4.1-5 Juta,4189405.4882280035
+P17509238362290,media_narrative_negative,5.0,4.0,-1.0,35,Female,Senior High School,6462368.113166302,Bali-Nusa,West Nusa Tenggara,Urban,5,5,5,3.1-4 Juta,3872929.3289583144
+P17509238364201,control,5.0,5.0,0.0,42,Male,Bachelor's Degree,4728325.94663746,Java,Banten,Rural,7,5,4,2.1-3 Juta,2792624.8961786344
+P17509238362697,control,5.0,5.0,0.0,75,Male,Diploma,13297537.578990344,Java,Jakarta,Rural,6,5,6,> 8 Juta,9159908.293151382
+P17509238366834,media_narrative_negative,4.0,4.0,0.0,35,Female,Bachelor's Degree,6838117.471549656,Java,East Java,Urban,7,9,8,2.1-3 Juta,2009424.7355986366
+P17509238369621,policy_rate_decision,4.0,4.0,0.0,47,Female,Bachelor's Degree,18338453.604565285,Java,West Java,Urban,8,7,4,6.1-7 Juta,6678807.723078713
+P17509238367557,policy_rate_decision,5.0,5.0,0.0,27,Male,Senior High School,4698020.896312827,Sumatra,Bengkulu,Urban,5,6,3,2.1-3 Juta,2979526.4130964917
+P17509238368577,control,5.0,5.0,0.0,45,Female,Senior High School,8121315.007790409,Java,West Java,Urban,5,5,4,4.1-5 Juta,4746908.091958908
+P17509238365112,current_inflation_target,5.0,4.0,-1.0,70,Female,Senior High School,5232122.514348256,Java,East Java,Urban,4,6,5,2.1-3 Juta,2341659.663584558
+P17509238368824,current_inflation_target,5.0,4.0,-1.0,49,Female,Senior High School,5038142.894310059,Sulampua,Central Sulawesi,Rural,6,4,4,4.1-5 Juta,4551661.7339679785
+P17509238368608,full_policy_context,5.0,4.0,-1.0,21,Female,Senior High School,9147046.598774116,Sumatra,West Sumatra,Urban,4,5,4,5.1-6 Juta,5283292.982270963
+P17509238369958,media_narrative_negative,5.0,4.0,-1.0,41,Male,Senior High School,3868960.376923643,Java,West Java,Rural,5,4,4,3.1-4 Juta,3457240.018753043
+P17509238369536,media_narrative_positive,4.0,4.0,0.0,40,Female,Senior High School,17661437.34843667,Kalimantan,North Kalimantan,Urban,6,5,6,> 8 Juta,8696911.257234454
+P17509238369842,current_inflation_target,6.0,4.0,-2.0,31,Female,Senior High School,2909941.295364178,Java,Banten,Rural,5,3,5,2.1-3 Juta,2558733.9312545713
+P17509238367404,media_narrative_positive,5.0,4.0,-1.0,38,Male,Senior High School,9752921.522726249,Kalimantan,West Kalimantan,Urban,4,6,6,5.1-6 Juta,5435380.79314454
+P17509238366651,full_policy_context,6.0,4.0,-2.0,38,Female,Senior High School,3646260.42786808,Sumatra,West Sumatra,Urban,4,5,10,2.1-3 Juta,2098441.1134962724
+P17509238361148,policy_rate_decision,5.0,5.0,0.0,20,Female,Senior High School,6220756.420179633,Java,East Java,Rural,4,4,4,4.1-5 Juta,4787442.450933997
+P17509238366992,control,4.0,4.0,0.0,32,Female,Bachelor's Degree,8208547.946870588,Java,Central Java,Urban,7,8,5,3.1-4 Juta,3147410.2522202586
+P17509238364713,media_narrative_negative,5.0,4.0,-1.0,39,Male,Senior High School,3941733.3930929517,Sumatra,Riau Islands,Rural,5,4,5,2.1-3 Juta,2032329.661468992
+P17509238361538,control,5.0,4.0,-1.0,40,Female,Bachelor's Degree,13423134.419781592,Java,Central Java,Rural,7,6,9,> 8 Juta,13293625.913575444
+P17509238369403,policy_rate_decision,5.0,4.0,-1.0,44,Female,Diploma,16462454.056370094,Java,West Java,Rural,7,4,7,> 8 Juta,13203412.977360994
+P17509238366308,current_inflation_target,5.0,4.0,-1.0,41,Male,Senior High School,6946821.441823074,Java,Yogyakarta,Urban,4,5,9,5.1-6 Juta,5533729.27565283
+P17509238364771,media_narrative_negative,5.0,4.0,-1.0,26,Female,Senior High School,3829519.9289907087,Kalimantan,South Kalimantan,Urban,5,5,7,2.1-3 Juta,2545634.1050082315
+P17509238365985,policy_rate_decision,5.5,5.0,-0.5,47,Male,Senior High School,10546388.975836778,Kalimantan,East Kalimantan,Urban,4,6,9,7.1-8 Juta,7247977.984894517
+P17509238363877,media_narrative_positive,6.0,4.0,-2.0,21,Female,Senior High School,2421765.3513756758,Java,West Java,Rural,5,3,2,2.1-3 Juta,2456658.841306346
+P17509238366779,full_policy_context,5.0,4.0,-1.0,31,Female,Bachelor's Degree,4252818.223764043,Bali-Nusa,Bali,Rural,7,6,7,2.1-3 Juta,2535997.835915533
+P17509238367304,control,5.0,5.0,0.0,51,Female,Senior High School,8085638.569128762,Sumatra,West Sumatra,Urban,4,5,3,6.1-7 Juta,6850885.961789824
+P17509238368517,control,5.0,5.0,0.0,45,Female,Bachelor's Degree,3920016.7127737473,Bali-Nusa,West Nusa Tenggara,Urban,7,8,4,1-2 Juta,1705468.8266039144
+P17509238367367,media_narrative_negative,5.0,4.0,-1.0,53,Female,Diploma,8013486.362702086,Java,Banten,Urban,6,7,4,5.1-6 Juta,5725513.956451961
+P17509238363390,media_narrative_positive,5.0,4.0,-1.0,39,Male,Diploma,3927726.135344446,Bali-Nusa,West Nusa Tenggara,Urban,5,7,6,2.1-3 Juta,2650238.896423061
+P17509238363432,current_inflation_target,4.0,3.8,-0.20000000000000018,33,Male,Bachelor's Degree,9866626.855371699,Java,Yogyakarta,Urban,6,7,6,3.1-4 Juta,3547923.4487145008
+P17509238361073,full_policy_context,5.0,4.0,-1.0,24,Female,Senior High School,5675501.870846476,Kalimantan,Central Kalimantan,Urban,5,5,2,3.1-4 Juta,3131132.8097382574
+P17509238369464,media_narrative_positive,4.0,3.8,-0.20000000000000018,39,Female,Diploma,14163385.908768844,Java,West Java,Urban,7,7,4,7.1-8 Juta,7449461.814145976
+P17509238366259,current_inflation_target,5.0,4.0,-1.0,31,Male,Senior High School,6622689.988498861,Java,Central Java,Urban,5,6,5,3.1-4 Juta,3661933.0691788066
+P17509238369509,media_narrative_negative,4.0,4.0,0.0,47,Male,Bachelor's Degree,5200939.895032371,Sumatra,Aceh,Urban,7,8,10,2.1-3 Juta,2765863.084943291
+P17509238369826,control,3.8,4.2,0.40000000000000036,38,Female,Master's Degree,10923428.174020179,Java,Jakarta,Urban,9,8,8,4.1-5 Juta,4839325.931563902
+P17509238363551,full_policy_context,4.0,4.0,0.0,78,Male,Diploma,7109169.966293157,Java,Jakarta,Urban,6,7,1,4.1-5 Juta,4296493.533148144
+P17509238362040,current_inflation_target,5.0,4.0,-1.0,38,Male,Senior High School,6710343.618930056,Sulampua,Maluku,Urban,4,5,7,3.1-4 Juta,3652575.4682011446
+P17509238367850,policy_rate_decision,5.0,4.0,-1.0,25,Male,Senior High School,6738347.932674845,Sumatra,Riau Islands,Urban,4,5,6,3.1-4 Juta,3234275.122024044
+P17509238362659,full_policy_context,5.0,4.0,-1.0,39,Male,Senior High School,14080470.400841724,Sumatra,Aceh,Urban,5,6,6,7.1-8 Juta,7107770.635217053
+P17509238365474,policy_rate_decision,5.0,4.0,-1.0,49,Female,Senior High School,13622033.33746558,Java,West Java,Urban,5,5,3,7.1-8 Juta,7384822.358682825
+P17509238364528,media_narrative_positive,5.0,4.0,-1.0,37,Female,Senior High School,4248331.423103186,Java,West Java,Rural,4,3,5,4.1-5 Juta,4866959.188555326
+P17509238367985,media_narrative_negative,5.0,4.0,-1.0,25,Female,Senior High School,8778734.63447768,Sulampua,North Maluku,Urban,4,5,1,4.1-5 Juta,4166923.5406072484
+P17509238363991,media_narrative_negative,5.0,4.0,-1.0,33,Female,Senior High School,7170145.433379455,Java,Yogyakarta,Urban,6,5,4,4.1-5 Juta,4500836.803135642
+P17509238367329,media_narrative_positive,5.0,4.0,-1.0,46,Female,Senior High School,3336596.2215737323,Sumatra,West Sumatra,Urban,4,6,6,2.1-3 Juta,2123739.091475338
+P17509238369221,control,4.0,4.0,0.0,39,Female,Bachelor's Degree,21554918.03126159,Java,Jakarta,Urban,7,8,4,7.1-8 Juta,7927180.228840719
+P17509238365095,full_policy_context,5.0,4.0,-1.0,37,Female,Senior High School,8544241.591662742,Java,Yogyakarta,Urban,4,5,7,4.1-5 Juta,4585668.604666414
+P17509238367472,control,4.2,4.0,-0.20000000000000018,31,Male,Bachelor's Degree,15770062.829034295,Java,Banten,Urban,6,8,5,5.1-6 Juta,5307232.735734905
+P17509238366920,media_narrative_positive,5.0,4.0,-1.0,44,Female,Senior High School,2907167.1481865644,Java,West Java,Rural,6,4,7,2.1-3 Juta,2658255.525338522
+P17509238366296,current_inflation_target,4.0,4.0,0.0,45,Male,Bachelor's Degree,7602464.776897561,Java,Banten,Rural,6,5,4,3.1-4 Juta,3616465.8435806786
+P17509238363991,current_inflation_target,5.0,4.0,-1.0,56,Female,Senior High School,5356861.716370901,Java,Central Java,Urban,5,5,5,2.1-3 Juta,2741559.548490313
+P17509238361670,media_narrative_negative,5.0,4.0,-1.0,29,Male,Bachelor's Degree,4018396.386323218,Bali-Nusa,West Nusa Tenggara,Rural,6,5,3,1-2 Juta,1184253.0583600518
+P17509238361360,current_inflation_target,5.0,4.0,-1.0,26,Male,Senior High School,4614959.050016287,Java,Yogyakarta,Rural,5,4,4,3.1-4 Juta,3643105.8025276293
+P17509238367950,policy_rate_decision,5.0,4.0,-1.0,58,Female,Bachelor's Degree,2712140.5151074976,Sumatra,Lampung,Rural,6,6,6,1-2 Juta,1722458.962577514
+P17509238365967,control,5.0,5.0,0.0,22,Female,Diploma,7838354.231541861,Java,West Java,Urban,5,6,4,3.1-4 Juta,3656372.5022709463
+P17509238363931,policy_rate_decision,5.0,4.0,-1.0,22,Female,Diploma,7819148.860715535,Java,Central Java,Urban,6,7,7,3.1-4 Juta,3216250.7287831735
+P17509238365719,policy_rate_decision,5.0,4.0,-1.0,25,Male,Senior High School,5182427.102210061,Java,Central Java,Urban,5,5,6,2.1-3 Juta,2538781.968173632
+P17509238361461,control,5.0,5.0,0.0,30,Female,Senior High School,3292016.1268426836,Bali-Nusa,West Nusa Tenggara,Urban,5,6,5,2.1-3 Juta,2063101.2557702225
+P17509238361134,policy_rate_decision,5.0,4.0,-1.0,20,Female,Diploma,14573672.9177166,Java,Jakarta,Urban,6,6,8,7.1-8 Juta,7845841.46378308
+P17509238361217,media_narrative_positive,4.0,3.8,-0.20000000000000018,38,Female,Bachelor's Degree,12957701.861505356,Java,Jakarta,Rural,7,5,6,6.1-7 Juta,6419046.820177996
+P17509238361962,current_inflation_target,4.0,3.8,-0.20000000000000018,30,Female,Master's Degree,6245240.84874073,Java,Central Java,Urban,8,8,4,1-2 Juta,1268017.4362599433
+P17509238362159,current_inflation_target,5.0,4.0,-1.0,50,Male,Senior High School,20715101.60916031,Java,Banten,Urban,5,6,7,> 8 Juta,10230927.216918757
+P17509238367009,control,6.0,5.0,-1.0,35,Male,Senior High School,3001793.5306431334,Bali-Nusa,West Nusa Tenggara,Urban,4,5,6,2.1-3 Juta,2542913.4241168816
+P17509238363630,policy_rate_decision,4.0,3.8,-0.20000000000000018,23,Female,Bachelor's Degree,19692412.853853624,Java,Banten,Urban,8,8,3,> 8 Juta,8275343.748142973
+P17509238369253,policy_rate_decision,5.0,4.0,-1.0,42,Male,Diploma,2238527.8475635294,Java,Central Java,Urban,6,6,7,1-2 Juta,1121368.1577053864
+P17509238364957,control,4.0,4.0,0.0,44,Male,Bachelor's Degree,10218309.306174636,Java,Banten,Rural,8,6,4,6.1-7 Juta,6845202.620456987
+P17509238369298,full_policy_context,4.0,4.0,0.0,39,Female,Bachelor's Degree,15959328.143279476,Java,Central Java,Rural,7,6,6,7.1-8 Juta,7395126.228598136
+P17509238365139,control,5.0,5.0,0.0,45,Female,Senior High School,5506865.706907791,Java,East Java,Rural,5,4,8,4.1-5 Juta,4758286.012593131
+P17509238362534,media_narrative_positive,5.0,4.0,-1.0,35,Male,Senior High School,2101137.6923723426,Kalimantan,West Kalimantan,Rural,5,3,7,1-2 Juta,1158949.0043461123
+P17509238365714,current_inflation_target,5.0,4.0,-1.0,20,Female,Senior High School,7936102.063006348,Sulampua,Papua,Rural,5,3,6,5.1-6 Juta,5255735.193844454
+P17509238361189,media_narrative_negative,4.0,4.0,0.0,55,Female,Bachelor's Degree,6926524.450474241,Sulampua,Central Sulawesi,Urban,7,8,7,3.1-4 Juta,3640595.5674117366
+P17509238367303,full_policy_context,5.0,4.0,-1.0,41,Female,Senior High School,8324307.121404646,Java,West Java,Urban,6,5,4,4.1-5 Juta,4740572.259768084
+P17509238363256,media_narrative_positive,5.0,4.0,-1.0,77,Female,Diploma,8019423.057098525,Sulampua,Central Sulawesi,Urban,6,8,4,5.1-6 Juta,5841917.508712335
+P17509238364165,full_policy_context,4.0,4.0,0.0,23,Female,Bachelor's Degree,9676313.07448489,Java,Central Java,Rural,8,6,7,4.1-5 Juta,4396888.9675569795
+P17509238365481,full_policy_context,5.0,4.0,-1.0,29,Male,Diploma,10509502.326538056,Kalimantan,North Kalimantan,Urban,7,6,7,4.1-5 Juta,4712738.48804439
+P17509238369791,media_narrative_positive,5.0,4.0,-1.0,67,Female,Senior High School,2436675.4799950565,Java,Yogyakarta,Urban,5,6,5,1-2 Juta,1267130.8226131091
+P17509238366089,media_narrative_negative,6.0,4.0,-2.0,45,Male,Senior High School,2389578.980090675,Bali-Nusa,West Nusa Tenggara,Rural,4,4,3,1-2 Juta,1154483.2957275598
+P17509238365096,current_inflation_target,5.0,4.0,-1.0,32,Female,Senior High School,4554082.429335814,Java,Central Java,Urban,5,5,4,3.1-4 Juta,3136737.8754722364
+P17509238365096,media_narrative_positive,5.0,4.0,-1.0,39,Female,Senior High School,3745854.665277428,Sumatra,Riau Islands,Urban,5,6,6,2.1-3 Juta,2601547.2074900037
+P17509238366282,full_policy_context,5.0,4.0,-1.0,28,Female,Diploma,4126026.845966369,Sumatra,West Sumatra,Urban,6,7,5,2.1-3 Juta,2028759.4118595286
+P17509238368652,policy_rate_decision,5.0,4.0,-1.0,37,Male,Diploma,7628034.7635982055,Sumatra,Jambi,Rural,6,4,5,4.1-5 Juta,4959519.477443183
+P17509238363038,current_inflation_target,5.0,4.0,-1.0,37,Female,Senior High School,5090934.865507728,Java,East Java,Urban,5,5,3,3.1-4 Juta,3256820.435740864
+P17509238368672,policy_rate_decision,5.0,4.0,-1.0,28,Male,Senior High School,6393454.452505426,Java,Banten,Rural,5,4,6,5.1-6 Juta,5496328.988061985
+P17509238363779,media_narrative_negative,5.0,4.0,-1.0,35,Female,Diploma,7326912.417676832,Java,West Java,Urban,6,7,1,4.1-5 Juta,4251345.247913762
+P17509238367912,current_inflation_target,4.0,4.0,0.0,38,Male,Bachelor's Degree,8146810.3863881705,Java,Jakarta,Urban,7,8,4,4.1-5 Juta,4767010.583547478
+P17509238364086,control,5.0,5.0,0.0,31,Female,Senior High School,6106769.530177558,Java,Banten,Rural,4,4,8,4.1-5 Juta,4497472.126218036
+P17509238369316,policy_rate_decision,5.0,5.0,0.0,50,Male,Senior High School,6503584.7604210265,Java,West Java,Urban,4,6,5,4.1-5 Juta,4161797.631340756
+P17509238365495,media_narrative_positive,5.0,4.0,-1.0,37,Male,Diploma,15042657.682802215,Java,Jakarta,Urban,6,7,2,6.1-7 Juta,6734647.701416588
+P17509238361826,control,5.0,5.0,0.0,43,Female,Senior High School,4234251.879318651,Bali-Nusa,Bali,Urban,4,5,5,2.1-3 Juta,2741001.1340040443
+P17509238367750,media_narrative_positive,6.0,4.0,-2.0,43,Female,Senior High School,2692460.427786463,Java,East Java,Rural,4,3,3,2.1-3 Juta,2985696.8070955463
+P17509238364644,current_inflation_target,6.0,4.0,-2.0,31,Male,Senior High School,2950156.2395122144,Kalimantan,South Kalimantan,Rural,4,3,7,2.1-3 Juta,2235292.561754935
