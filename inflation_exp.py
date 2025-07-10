@@ -3485,7 +3485,7 @@ class ExperimentManager:
         """
         total_personas = personas_per_group * len(self.TREATMENT_TYPES)
         print(f"Starting experiment with {personas_per_group} personas per treatment group ({total_personas} total) using {model}...")
-        personas = self.persona_generator.generate_personas(total_personas)
+        personas = self.persona_generator.generate_personas(total_personas, current_quarter=quarter)
         print(f"Generated {len(personas)} personas")
         treatments = self.generate_treatments()
         treatment_assignments = self.assign_treatment_groups(personas_per_group)
@@ -3907,7 +3907,7 @@ class ResultsExporter:
             <!DOCTYPE html>
             <html>
             <head>
-                <title>Bank Indonesia Inflation Expectations Experiment Report</title>
+                <title>Bank Indonesia Inflation Expectations Experiment Report {self.quarter}</title>
                 <style>
                     body {{ font-family: Arial, sans-serif; margin: 20px; }}
                     h1, h2, h3 {{ color: #2c3e50; }}
@@ -3921,7 +3921,7 @@ class ResultsExporter:
                 </style>
             </head>
             <body>
-                <h1>Bank Indonesia Inflation Expectations Experiment Report 2025</h1>
+                <h1>Bank Indonesia Inflation Expectations Experiment Report {self.quarter}</h1>
                 <p><strong>Date:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
                 <p><strong>Model:</strong> {self.results['model']}</p>
                 <p><strong>Sample Size:</strong> {self.results['persona_count']} personas</p>

@@ -5,15 +5,14 @@ import os
 import json
 
 # Path to the macro data CSV
-CSV_PATH = 'data/indonesia_quarterly_context_2019_2025.csv'
+CSV_PATH = 'data/indonesia_quarterly_context_2019_q12.csv'
 
 # Set up database manager (adjust as needed)
 db_path = 'data/inflation_study.db'
-db_manager = DatabaseManager(db_path)
+db_manager = DatabaseManager(db_type="sqlite", db_path=db_path)
 
 # Load macro data
-macro_df = pd.read_csv(CSV_PATH)
-macro_df['quarter'] = macro_df['quarter'].astype(str)
+quarter_df = pd.read_csv(CSV_PATH)
 
 # Directory to save results
 RESULTS_DIR = 'results'
@@ -21,8 +20,8 @@ os.makedirs(RESULTS_DIR, exist_ok=True)
 
 all_results = []
 
-for idx, row in macro_df.iterrows():
-    quarter = row['quarter']
+for idx, row in quarter_df.iterrows():
+    quarter = row['Quarter']
     print(f'Running experiment for quarter: {quarter}')
     # Prepare context dict for this quarter
     context = {
