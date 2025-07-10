@@ -324,6 +324,7 @@ class DatabaseManager:
 class Persona:
     """Class representing a synthetic Indonesian persona"""
     id: str
+    quarter: str
     age: int
     gender: str
     education: str
@@ -341,6 +342,7 @@ class Persona:
         """Convert persona to dictionary"""
         return {
             'id': self.id,
+            'quarter': self.quarter,
             'age': self.age,
             'gender': self.gender,
             'education': self.education,
@@ -361,6 +363,7 @@ class Persona:
         
         return f"""
         You are a {self.age}-year-old {self.gender} living in a {self.urban_rural} area in {self.province}, {self.region} region of Indonesia. 
+        We are currently in {self.quarter}.
         Your highest education level is {self.education} and your monthly income is around Rp {self.income:,.0f}, which is considered {income_level} income.
         Your household expenditure bracket is {self.expenditure_bracket} per month.
         Your financial literacy level is {self.financial_literacy}/10 and your exposure to economic news media is {self.media_exposure}/10.
@@ -3115,20 +3118,12 @@ class PersonaGenerator:
     
     def generate_risk_attitude(self, age: int, gender: str) -> int:
         """Generate risk attitude score (1-10)"""
-        # Base score normally distributed and determined from Sahm (2007)
-        base_score = np.random.normal(5.5, 1.8)
-        
-        # Adjust by age (younger = more risk tolerant)
-        # age_factor = max(0, (50 - age) / 10)
-        
-        # According to Nelson (2014), risk aversion difference between gender is minimal 
-        # gender_factor = 0.5 if gender == 'Male' else -0.5
-        
-        score = base_score
-        
+        # Score normally distributed and determined from Sahm (2007)
+        score = np.random.normal(5.5, 1.8)
+            
         return max(1, min(10, int(score)))
     
-    def generate_persona(self) -> Persona:
+    def generate_persona(self, quarter: str) -> Persona:
         """Generate a complete synthetic persona"""
         # Generate ID with timestamp and random string
         persona_id = f"P{int(datetime.now().timestamp())}{random.randint(1000, 9999)}"
@@ -3150,6 +3145,7 @@ class PersonaGenerator:
         
         return Persona(
             id=persona_id,
+            quarter=quarter,
             age=age,
             gender=gender,
             education=education,
@@ -3164,9 +3160,9 @@ class PersonaGenerator:
             expenditure=expenditure
         )
     
-    def generate_personas(self, count: int) -> List[Persona]:
+    def generate_personas(self, count: int, current_quarter: str) -> List[Persona]:
         """Generate multiple personas"""
-        return [self.generate_persona() for _ in range(count)]
+        return [self.generate_persona(quarter=current_quarter) for _ in range(count)]
 
 
 #######################
@@ -3382,6 +3378,7 @@ class LLMAgent:
         change = post['inflation_expectation'] - pre['inflation_expectation']
         
         return {
+            'quarter': self.quarter,
             'persona_id': self.persona.id,
             'treatment_group': self.memory['treatment_received']['type'] if self.memory['treatment_received'] else 'none',
             'pre_treatment_expectation': pre['inflation_expectation'],
@@ -3393,19 +3390,18 @@ class LLMAgent:
             'post_reasoning': post['reasoning']
         }
 
-
 #######################
 # EXPERIMENT IMPLEMENTATION
 #######################
 
 class ExperimentManager:
     """Manager for experiment execution"""
+
     # Updated treatment types based on research proposal Table 1
     TREATMENT_TYPES = [
         'control',
         'current_inflation_target',
-        'media_narrative_positive',
-        'media_narrative_negative',
+        'media_narrative',
         'full_policy_context',
         'policy_rate_decision'
     ]
@@ -3413,29 +3409,11 @@ class ExperimentManager:
     def __init__(self, db_manager: DatabaseManager):
         self.db_manager = db_manager
         self.persona_generator = PersonaGenerator()
-        self.economic_context = self._get_economic_context()
+        self.economic_context = None
 
-    def _get_economic_context(self) -> Dict:
-        """
-        Get economic context for treatments
-        
-        Returns:
-            Dictionary with economic context
-        """
-        # In a real implementation, this would pull from real data
-        # For this simulation, we'll use placeholder data
-        return {
-            'current_inflation': 3.5,
-            'policy_rate': 5.75,
-            'gdp_growth': 5.2,
-            'unemployment': 5.7,
-            'rupiah_exchange_rate': 15600,  # IDR per USD
-            'economic_outlook': 'moderate growth with controlled inflation',
-            'inflation_target': '2.5% to 4.5%',
-            'global_factors': 'moderate commodity price pressure, stable global growth',
-            'media_positive': 'Recent news emphasizes inflation easing and government interventions.',
-            'media_negative': 'Recent news emphasizes rising prices and inflation risks.'
-        }
+    def set_economic_context(self, context: Dict):
+        """Set economic context from a CSV for current run"""
+        self.economic_context = context
     
     def generate_treatments(self) -> Dict[str, str]:
         """
@@ -3455,15 +3433,10 @@ class ExperimentManager:
                 According to the latest data from Bank Indonesia, the current inflation rate is {context['current_inflation']}%. 
                 The central bank aims to keep annual inflation within its target range of {context['inflation_target']}.
             """,
-            'media_narrative_positive': f"""
+            'media_narrative': f"""
                 According to the latest data from Bank Indonesia, the current inflation rate is {context['current_inflation']}%. 
                 The central bank aims to keep annual inflation within its target range of {context['inflation_target']}.
-                {context['media_positive']}
-            """,
-            'media_narrative_negative': f"""
-                According to the latest data from Bank Indonesia, the current inflation rate is {context['current_inflation']}%. 
-                The central bank aims to keep annual inflation within its target range of {context['inflation_target']}.
-                {context['media_negative']}
+                {context['media_narrative']}
             """,
             'full_policy_context': f"""
                 Bank Indonesia has announced its policy stance: 
@@ -3499,7 +3472,7 @@ class ExperimentManager:
         print(f"Created treatment assignments: {len(assignments)} total, {count_per_group} per group")
         return assignments
     
-    def run_experiment(self, personas_per_group: int = 30, model: str = DEFAULT_MODEL) -> Dict:
+    def run_experiment(self, personas_per_group: int = 30, model: str = DEFAULT_MODEL, quarter=quarter) -> Dict:
         """
         Run the full experiment with balanced treatment groups
         
@@ -3660,8 +3633,7 @@ class DataAnalyzer:
         # List of correct dummy variable names based on treatment groups
         treatment_dummy_names = [
             'treatment_current_inflation_target',
-            'treatment_media_narrative_positive',
-            'treatment_media_narrative_negative',
+            'treatment_media_narrative',
             'treatment_full_policy_context',
             'treatment_policy_rate_decision'
         ]
@@ -3949,7 +3921,7 @@ class ResultsExporter:
                 </style>
             </head>
             <body>
-                <h1>Bank Indonesia Inflation Expectations Experiment Report</h1>
+                <h1>Bank Indonesia Inflation Expectations Experiment Report 2025</h1>
                 <p><strong>Date:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
                 <p><strong>Model:</strong> {self.results['model']}</p>
                 <p><strong>Sample Size:</strong> {self.results['persona_count']} personas</p>
