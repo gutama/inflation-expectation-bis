@@ -3378,7 +3378,7 @@ class LLMAgent:
         change = post['inflation_expectation'] - pre['inflation_expectation']
         
         return {
-            'quarter': self.quarter,
+            'quarter': self.persona.quarter,
             'persona_id': self.persona.id,
             'treatment_group': self.memory['treatment_received']['type'] if self.memory['treatment_received'] else 'none',
             'pre_treatment_expectation': pre['inflation_expectation'],
@@ -3472,7 +3472,7 @@ class ExperimentManager:
         print(f"Created treatment assignments: {len(assignments)} total, {count_per_group} per group")
         return assignments
     
-    def run_experiment(self, personas_per_group: int = 30, model: str = DEFAULT_MODEL, quarter=quarter) -> Dict:
+    def run_experiment(self, personas_per_group: int = 30, model: str = DEFAULT_MODEL, quarter=None) -> Dict:
         """
         Run the full experiment with balanced treatment groups
         
