@@ -5,7 +5,7 @@ import os
 import json
 
 # Path to the macro data CSV
-CSV_PATH = 'data/indonesia_quarterly_context_2019_q12.csv'
+CSV_PATH = 'data/indonesia_quarterly_context_2019_q1.csv'
 
 # Set up database manager (adjust as needed)
 db_path = 'data/inflation_study.db'
@@ -35,18 +35,24 @@ for idx, row in quarter_df.iterrows():
         'global_factors': row['global_factors'],
         'media_narrative': row['media_narrative'],
     }
+
     # Set up experiment manager
     exp_manager = ExperimentManager(db_manager)
     exp_manager.set_economic_context(context)
+
     # Run experiment for this quarter
     result = exp_manager.run_experiment(personas_per_group=30, quarter=quarter)
     all_results.append(result)
-    # Export per-quarter
+
+    # Export per quarter
     exporter = ResultsExporter(result, output_dir=RESULTS_DIR)
+
     base_name = f'experiment_results_{quarter}_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
     exporter.export_to_json(base_name + '.json')
     exporter.export_to_csv(base_name + '.csv')
-    exporter.generate_report(base_name + '.html')
+
+    report_name = f'report_{quarter}_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+    exporter.generate_report(report_name + '.html')
     print(f'Exported results for {quarter}')
 
 # Combine all results into one large file

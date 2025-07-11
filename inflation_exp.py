@@ -3484,7 +3484,7 @@ class ExperimentManager:
             Dictionary with experiment results
         """
         total_personas = personas_per_group * len(self.TREATMENT_TYPES)
-        print(f"Starting experiment with {personas_per_group} personas per treatment group ({total_personas} total) using {model}...")
+        print(f"Starting experiment with {personas_per_group} personas per group ({total_personas} total) using {model}...")
         personas = self.persona_generator.generate_personas(total_personas, current_quarter=quarter)
         print(f"Generated {len(personas)} personas")
         treatments = self.generate_treatments()
@@ -3902,12 +3902,13 @@ class ResultsExporter:
         analyzer.plot_treatment_effects(plot_file)
         
         # Generate HTML report
+        quarter_str = self.results['results'][0]['quarter'] if self.results.get('results') and self.results['results'] and 'quarter' in self.results['results'][0] else ''
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(f'''
             <!DOCTYPE html>
             <html>
             <head>
-                <title>Bank Indonesia Inflation Expectations Experiment Report {self.quarter}</title>
+                <title>Bank Indonesia Inflation Expectations Experiment Report {quarter_str}</title>
                 <style>
                     body {{ font-family: Arial, sans-serif; margin: 20px; }}
                     h1, h2, h3 {{ color: #2c3e50; }}
@@ -3921,7 +3922,7 @@ class ResultsExporter:
                 </style>
             </head>
             <body>
-                <h1>Bank Indonesia Inflation Expectations Experiment Report {self.quarter}</h1>
+                <h1>Bank Indonesia Inflation Expectations Experiment Report {quarter_str}</h1>
                 <p><strong>Date:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
                 <p><strong>Model:</strong> {self.results['model']}</p>
                 <p><strong>Sample Size:</strong> {self.results['persona_count']} personas</p>
