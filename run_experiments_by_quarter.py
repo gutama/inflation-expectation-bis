@@ -4,15 +4,12 @@ from datetime import datetime
 import os
 import json
 
-# Path to the macro data CSV
-CSV_PATH = 'data/indonesia_quarterly_context_2019_q1.csv'
-
-# Set up database manager (adjust as needed)
+# Set up database manager
 db_path = 'data/inflation_study.db'
 db_manager = DatabaseManager(db_type="sqlite", db_path=db_path)
 
-# Load macro data
-quarter_df = pd.read_csv(CSV_PATH)
+# Load quarterly context data
+quarter_df = pd.read_csv('data/indonesia_quarterly_context_2019_2025.csv')
 
 # Directory to save results
 RESULTS_DIR = 'results'

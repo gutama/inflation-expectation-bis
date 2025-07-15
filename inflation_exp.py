@@ -22,10 +22,10 @@ from litellm import completion
 # Load environment variables
 load_dotenv()
 
-# # Set random seed for reproducibility
-# RANDOM_SEED = 42
-# random.seed(RANDOM_SEED)
-# np.random.seed(RANDOM_SEED)
+# Set random seed for reproducibility
+RANDOM_SEED = 42
+random.seed(RANDOM_SEED)
+np.random.seed(RANDOM_SEED)
 
 # Base configuration
 DEFAULT_MODEL = "gpt-4.1-mini"
@@ -3445,11 +3445,13 @@ class ExperimentManager:
                 - Inflation target: {context['inflation_target']}
                 - GDP growth: {context['gdp_growth']}%
                 - Economic outlook: {context['economic_outlook']}
-                - Additional measures: New price controls on essential goods.
+                - Additional measures: New price controls on food and energy.
             """,
             'policy_rate_decision': f"""
-                Bank Indonesia has increased its policy interest rate to {context['policy_rate']}% to help control inflation. 
-                This decision signals a tightening of monetary policy.
+                Bank Indonesia has changed its interest rate to {context['policy_rate']}% to help control inflation. 
+                This decision signals an adjustment of monetary policy.
+                An increase in interest rate signals a tightening of the economy, aiming to increase savings and reduce spending. 
+                A decrease in interest rate signals easing of the economy, aiming to stimulate economic activity.
             """
         }
         
@@ -3707,7 +3709,7 @@ class DataAnalyzer:
             # Add labels and title
             plt.xlabel('Treatment Group')
             plt.ylabel('Mean Change in Inflation Expectation (%)')
-            plt.title('Treatment Effects on Inflation Expectations')
+            plt.title(f'Treatment Effects on Inflation Expectations in {self.df["quarter"].iloc[0]}')
             plt.grid(axis='y', linestyle='--', alpha=0.7)
             
             # Add value labels on bars
@@ -3897,12 +3899,14 @@ class ResultsExporter:
         regression_results = analyzer.run_regression_analysis()
         heterogeneity_df = analyzer.heterogeneity_analysis()
         
+        # Get quarter string
+        quarter_str = self.results['results'][0]['quarter'] if self.results.get('results') and self.results['results'] and 'quarter' in self.results['results'][0] else ''
+
         # Create plots
-        plot_file = os.path.join(self.output_dir, f"treatment_effects_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png")
+        plot_file = os.path.join(self.output_dir, f"treatment_effects_{quarter_str}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png")
         analyzer.plot_treatment_effects(plot_file)
         
         # Generate HTML report
-        quarter_str = self.results['results'][0]['quarter'] if self.results.get('results') and self.results['results'] and 'quarter' in self.results['results'][0] else ''
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(f'''
             <!DOCTYPE html>
