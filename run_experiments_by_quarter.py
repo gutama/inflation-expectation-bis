@@ -44,11 +44,11 @@ for idx, row in quarter_df.iterrows():
     # Export per quarter
     exporter = ResultsExporter(result, output_dir=RESULTS_DIR)
 
-    base_name = f'experiment_results_{quarter}_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+    base_name = f'{quarter}_experiment_results_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
     exporter.export_to_json(base_name + '.json')
     exporter.export_to_csv(base_name + '.csv')
 
-    report_name = f'report_{quarter}_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+    report_name = f'{quarter}_report_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
     exporter.generate_report(report_name + '.html')
     print(f'Exported results for {quarter}')
 
@@ -58,7 +58,7 @@ combined = {
     'quarters': [r.get('results', []) for r in all_results],
     'all_results_flat': [item for r in all_results for item in r.get('results', [])]
 }
-combined_json = os.path.join(RESULTS_DIR, 'all_experiment_results.json')
+combined_json = os.path.join(RESULTS_DIR, f'all_experiment_results_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json')
 with open(combined_json, 'w') as f:
     json.dump(combined, f, indent=2)
 
@@ -66,6 +66,6 @@ with open(combined_json, 'w') as f:
 all_rows = [item for r in all_results for item in r.get('results', [])]
 if all_rows:
     df = pd.DataFrame(all_rows)
-    df.to_csv(os.path.join(RESULTS_DIR, 'all_experiment_results.csv'), index=False)
+    df.to_csv(os.path.join(RESULTS_DIR, f'all_experiment_results_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv'), index=False)
 
 print(f'Combined results exported to {combined_json} and CSV.')

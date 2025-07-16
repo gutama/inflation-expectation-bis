@@ -280,14 +280,12 @@ class DatabaseManager:
                 'education_distribution': {},
                 'region_distribution': {}
             }
-            
-            # This is simplified - in a real implementation we would use SQLAlchemy's
-            # group_by and aggregate functions to get these distributions
-            
             return result
+        
         except Exception as e:
             print(f"Error retrieving survey statistics: {e}")
             return {'error': str(e)}
+        
         finally:
             session.close()
     
@@ -3201,7 +3199,7 @@ class LLMAgent:
         Some important economic context about Indonesia:
         - Indonesia is the largest economy in Southeast Asia
         - Indonesia's central bank is Bank Indonesia (BI)
-        - In recent years, inflation has typically been in the 2-5% range
+        - In recent years, the lowest and highest inflation rate in Indonesia have been 1.57% and 5.51% respectively
         - The economy is diverse but still reliant on natural resources and agriculture in many regions
         - Bank Indonesia sets interest rate policy to control inflation
         
@@ -3706,10 +3704,15 @@ class DataAnalyzer:
                    yerr=treatment_means['std'], capsize=10, 
                    color=['lightgray', 'lightblue', 'lightgreen', 'lightpink', 'lightyellow'])
             
+            # Get quarter string
+            quarter_str = ""
+            if self.results and 'quarter' in self.results[0]:
+                quarter_str = self.df['persona_quarter'].iloc[0]
+
             # Add labels and title
             plt.xlabel('Treatment Group')
             plt.ylabel('Mean Change in Inflation Expectation (%)')
-            plt.title(f'Treatment Effects on Inflation Expectations in {self.df["quarter"].iloc[0]}')
+            plt.title(f'Treatment Effects on Inflation Expectations in {quarter_str}')
             plt.grid(axis='y', linestyle='--', alpha=0.7)
             
             # Add value labels on bars
@@ -3903,7 +3906,7 @@ class ResultsExporter:
         quarter_str = self.results['results'][0]['quarter'] if self.results.get('results') and self.results['results'] and 'quarter' in self.results['results'][0] else ''
 
         # Create plots
-        plot_file = os.path.join(self.output_dir, f"treatment_effects_{quarter_str}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png")
+        plot_file = os.path.join(self.output_dir, f"{quarter_str}_treatment_effects_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png")
         analyzer.plot_treatment_effects(plot_file)
         
         # Generate HTML report
