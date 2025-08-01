@@ -9,7 +9,7 @@ db_path = 'data/inflation_study.db'
 db_manager = DatabaseManager(db_type="sqlite", db_path=db_path)
 
 # Load quarterly context data
-quarter_df = pd.read_csv('data/indonesia_quarterly_context_2019_2025.csv')
+quarter_df = pd.read_csv('data/indonesia_quarterly_context_2018_2025.csv')
 
 # Directory to save results
 RESULTS_DIR = 'results'
@@ -18,7 +18,7 @@ os.makedirs(RESULTS_DIR, exist_ok=True)
 all_results = []
 
 for idx, row in quarter_df.iterrows():
-    quarter = row['Quarter']
+    quarter = row['quarter']
     print(f'Running experiment for quarter: {quarter}')
     # Prepare context dict for this quarter
     context = {

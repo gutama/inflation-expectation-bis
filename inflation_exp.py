@@ -28,7 +28,7 @@ random.seed(RANDOM_SEED)
 np.random.seed(RANDOM_SEED)
 
 # Base configuration
-DEFAULT_MODEL = "gpt-4.1-mini"
+DEFAULT_MODEL = "gemini-2.5-flash"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 RESULTS_DIR = os.path.join(BASE_DIR, "results")
@@ -3712,7 +3712,7 @@ class DataAnalyzer:
             # Add labels and title
             plt.xlabel('Treatment Group')
             plt.ylabel('Mean Change in Inflation Expectation (%)')
-            plt.title(f'Treatment Effects on Inflation Expectations in {quarter_str}')
+            plt.title(f'Treatment Effects on Inflation Expectations in {quarter_str}, {DEFAULT_MODEL}')
             plt.grid(axis='y', linestyle='--', alpha=0.7)
             
             # Add value labels on bars
