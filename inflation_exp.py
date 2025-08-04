@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import sqlite3
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Tuple
 from dataclasses import dataclass
 import statsmodels.api as sm
 from statsmodels.formula.api import ols
@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, Column, Integer, String, Float, Text, DateTime, ForeignKey, func
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.orm import sessionmaker
 from litellm import completion
 
 # Load environment variables
