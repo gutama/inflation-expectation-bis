@@ -3116,7 +3116,7 @@ class PersonaGenerator:
     
     def generate_risk_attitude(self, age: int, gender: str) -> int:
         """Generate risk attitude score (1-10)"""
-        # Score normally distributed and determined from Sahm (2007)
+        # Score normally distributed and determined from Sahm (2012)
         score = np.random.normal(5.5, 1.8)
             
         return max(1, min(10, int(score)))
