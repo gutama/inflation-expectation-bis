@@ -1,0 +1,702 @@
+
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Bank Indonesia Inflation Expectations Experiment Report 2023Q2</title>
+                <style>
+                    body { font-family: Arial, sans-serif; margin: 20px; }
+                    h1, h2, h3 { color: #2c3e50; }
+                    table { border-collapse: collapse; width: 100%; }
+                    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                    th { background-color: #f2f2f2; }
+                    tr:nth-child(even) { background-color: #f9f9f9; }
+                    .section { margin-bottom: 30px; }
+                    .plot { text-align: center; margin: 20px 0; }
+                    pre { background-color: #f8f8f8; padding: 10px; overflow-x: auto; }
+                </style>
+            </head>
+            <body>
+                <h1>Bank Indonesia Inflation Expectations Experiment Report 2023Q2</h1>
+                <p><strong>Date:</strong> 2025-08-16 05:47:12</p>
+                <p><strong>Model:</strong> gpt-4.1-mini</p>
+                <p><strong>Sample Size:</strong> 180 personas</p>
+                
+                <div class="section">
+                    <h2>1. Summary Statistics</h2>
+                    <table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="5" halign="left">pre_expectation</th>
+      <th colspan="4" halign="left">post_expectation</th>
+      <th colspan="4" halign="left">expectation_change</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>treatment_group</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>control</th>
+      <td>30</td>
+      <td>5.283333</td>
+      <td>0.520002</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>5.416667</td>
+      <td>0.474947</td>
+      <td>5.0</td>
+      <td>6.5</td>
+      <td>0.133333</td>
+      <td>0.472217</td>
+      <td>-1.0</td>
+      <td>1.5</td>
+    </tr>
+    <tr>
+      <th>current_inflation</th>
+      <td>30</td>
+      <td>5.390000</td>
+      <td>0.481628</td>
+      <td>5.0</td>
+      <td>6.0</td>
+      <td>4.300000</td>
+      <td>0.466092</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>-1.090000</td>
+      <td>0.324143</td>
+      <td>-2.0</td>
+      <td>-0.5</td>
+    </tr>
+    <tr>
+      <th>full_policy_context</th>
+      <td>30</td>
+      <td>5.383333</td>
+      <td>0.485715</td>
+      <td>5.0</td>
+      <td>6.0</td>
+      <td>3.980000</td>
+      <td>0.061026</td>
+      <td>3.8</td>
+      <td>4.0</td>
+      <td>-1.403333</td>
+      <td>0.473056</td>
+      <td>-2.0</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>inflation_target</th>
+      <td>30</td>
+      <td>5.300000</td>
+      <td>0.466092</td>
+      <td>5.0</td>
+      <td>6.0</td>
+      <td>4.466667</td>
+      <td>0.507416</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>-0.833333</td>
+      <td>0.461133</td>
+      <td>-2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>media_narrative</th>
+      <td>30</td>
+      <td>5.416667</td>
+      <td>0.573605</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>4.916667</td>
+      <td>0.395739</td>
+      <td>4.0</td>
+      <td>5.5</td>
+      <td>-0.500000</td>
+      <td>0.572351</td>
+      <td>-2.0</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>policy_rate_decision</th>
+      <td>30</td>
+      <td>5.290000</td>
+      <td>0.445940</td>
+      <td>5.0</td>
+      <td>6.0</td>
+      <td>4.923333</td>
+      <td>0.564271</td>
+      <td>4.0</td>
+      <td>6.0</td>
+      <td>-0.366667</td>
+      <td>0.574356</td>
+      <td>-2.0</td>
+      <td>0.5</td>
+    </tr>
+  </tbody>
+</table>
+                    
+                    <h3>Treatment Effects</h3>
+                    <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>treatment_effect</th>
+    </tr>
+    <tr>
+      <th>treatment_group</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>policy_rate_decision</th>
+      <td>-0.500000</td>
+    </tr>
+    <tr>
+      <th>full_policy_context</th>
+      <td>-1.536667</td>
+    </tr>
+    <tr>
+      <th>current_inflation</th>
+      <td>-1.223333</td>
+    </tr>
+    <tr>
+      <th>control</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>media_narrative</th>
+      <td>-0.633333</td>
+    </tr>
+    <tr>
+      <th>inflation_target</th>
+      <td>-0.966667</td>
+    </tr>
+  </tbody>
+</table>
+                </div>
+                
+                <div class="section">
+                    <h2>2. Treatment Effects Plot</h2>
+                    <div class="plot">
+                        <img src="2023Q2_treatment_effects_20250816_054712.png" alt="Treatment Effects Plot">
+                    </div>
+                </div>
+            
+                <div class="section">
+                        
+                    <h2>3. Regression Analysis</h2>
+                    <h3>3.1 Baseline Model (Treatment Effects Only)</h3>
+                    <pre><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>    <td>expectation_change</td> <th>  R-squared:         </th> <td>   0.523</td>
+</tr>
+<tr>
+  <th>Model:</th>                    <td>OLS</td>        <th>  Adj. R-squared:    </th> <td>   0.509</td>
+</tr>
+<tr>
+  <th>Method:</th>              <td>Least Squares</td>   <th>  F-statistic:       </th> <td>   38.15</td>
+</tr>
+<tr>
+  <th>Date:</th>              <td>Sat, 16 Aug 2025</td>  <th>  Prob (F-statistic):</th> <td>2.59e-26</td>
+</tr>
+<tr>
+  <th>Time:</th>                  <td>05:47:12</td>      <th>  Log-Likelihood:    </th> <td> -122.78</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>       <td>   180</td>       <th>  AIC:               </th> <td>   257.6</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>           <td>   174</td>       <th>  BIC:               </th> <td>   276.7</td>
+</tr>
+<tr>
+  <th>Df Model:</th>               <td>     5</td>       <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>       <td>nonrobust</td>     <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+                     <td></td>                       <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th>                              <td>    0.1333</td> <td>    0.089</td> <td>    1.500</td> <td> 0.135</td> <td>   -0.042</td> <td>    0.309</td>
+</tr>
+<tr>
+  <th>treatment_current_inflation[T.True]</th>    <td>   -1.2233</td> <td>    0.126</td> <td>   -9.732</td> <td> 0.000</td> <td>   -1.471</td> <td>   -0.975</td>
+</tr>
+<tr>
+  <th>treatment_inflation_target[T.True]</th>     <td>   -0.9667</td> <td>    0.126</td> <td>   -7.691</td> <td> 0.000</td> <td>   -1.215</td> <td>   -0.719</td>
+</tr>
+<tr>
+  <th>treatment_media_narrative[T.True]</th>      <td>   -0.6333</td> <td>    0.126</td> <td>   -5.039</td> <td> 0.000</td> <td>   -0.881</td> <td>   -0.385</td>
+</tr>
+<tr>
+  <th>treatment_full_policy_context[T.True]</th>  <td>   -1.5367</td> <td>    0.126</td> <td>  -12.225</td> <td> 0.000</td> <td>   -1.785</td> <td>   -1.289</td>
+</tr>
+<tr>
+  <th>treatment_policy_rate_decision[T.True]</th> <td>   -0.5000</td> <td>    0.126</td> <td>   -3.978</td> <td> 0.000</td> <td>   -0.748</td> <td>   -0.252</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td> 5.457</td> <th>  Durbin-Watson:     </th> <td>   2.135</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.065</td> <th>  Jarque-Bera (JB):  </th> <td>   5.196</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td>-0.330</td> <th>  Prob(JB):          </th> <td>  0.0744</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 3.508</td> <th>  Cond. No.          </th> <td>    6.85</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</pre>
+                
+                    <h3>3.2 Model with Demographic Controls</h3>
+                    <pre><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>    <td>expectation_change</td> <th>  R-squared:         </th> <td>   0.584</td>
+</tr>
+<tr>
+  <th>Model:</th>                    <td>OLS</td>        <th>  Adj. R-squared:    </th> <td>   0.523</td>
+</tr>
+<tr>
+  <th>Method:</th>              <td>Least Squares</td>   <th>  F-statistic:       </th> <td>   9.529</td>
+</tr>
+<tr>
+  <th>Date:</th>              <td>Sat, 16 Aug 2025</td>  <th>  Prob (F-statistic):</th> <td>9.50e-20</td>
+</tr>
+<tr>
+  <th>Time:</th>                  <td>05:47:12</td>      <th>  Log-Likelihood:    </th> <td> -110.42</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>       <td>   180</td>       <th>  AIC:               </th> <td>   268.8</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>           <td>   156</td>       <th>  BIC:               </th> <td>   345.5</td>
+</tr>
+<tr>
+  <th>Df Model:</th>               <td>    23</td>       <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>       <td>nonrobust</td>     <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+                      <td></td>                         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th>                                 <td>    0.5192</td> <td>    0.534</td> <td>    0.972</td> <td> 0.333</td> <td>   -0.536</td> <td>    1.574</td>
+</tr>
+<tr>
+  <th>treatment_current_inflation[T.True]</th>       <td>   -1.1974</td> <td>    0.130</td> <td>   -9.242</td> <td> 0.000</td> <td>   -1.453</td> <td>   -0.941</td>
+</tr>
+<tr>
+  <th>treatment_inflation_target[T.True]</th>        <td>   -0.9653</td> <td>    0.132</td> <td>   -7.331</td> <td> 0.000</td> <td>   -1.225</td> <td>   -0.705</td>
+</tr>
+<tr>
+  <th>treatment_media_narrative[T.True]</th>         <td>   -0.5616</td> <td>    0.132</td> <td>   -4.268</td> <td> 0.000</td> <td>   -0.822</td> <td>   -0.302</td>
+</tr>
+<tr>
+  <th>treatment_full_policy_context[T.True]</th>     <td>   -1.4946</td> <td>    0.130</td> <td>  -11.541</td> <td> 0.000</td> <td>   -1.750</td> <td>   -1.239</td>
+</tr>
+<tr>
+  <th>treatment_policy_rate_decision[T.True]</th>    <td>   -0.5031</td> <td>    0.129</td> <td>   -3.902</td> <td> 0.000</td> <td>   -0.758</td> <td>   -0.248</td>
+</tr>
+<tr>
+  <th>persona_gender[T.Male]</th>                    <td>   -0.0616</td> <td>    0.084</td> <td>   -0.732</td> <td> 0.465</td> <td>   -0.228</td> <td>    0.105</td>
+</tr>
+<tr>
+  <th>persona_education[T.Diploma]</th>              <td>   -0.2755</td> <td>    0.153</td> <td>   -1.799</td> <td> 0.074</td> <td>   -0.578</td> <td>    0.027</td>
+</tr>
+<tr>
+  <th>persona_education[T.Master's Degree]</th>      <td>    0.2594</td> <td>    0.209</td> <td>    1.240</td> <td> 0.217</td> <td>   -0.154</td> <td>    0.673</td>
+</tr>
+<tr>
+  <th>persona_education[T.Senior High School]</th>   <td>   -0.3200</td> <td>    0.197</td> <td>   -1.626</td> <td> 0.106</td> <td>   -0.709</td> <td>    0.069</td>
+</tr>
+<tr>
+  <th>persona_urban_rural[T.Urban]</th>              <td>    0.4021</td> <td>    0.161</td> <td>    2.501</td> <td> 0.013</td> <td>    0.085</td> <td>    0.720</td>
+</tr>
+<tr>
+  <th>persona_expenditure_bracket[T.2.1-3 Juta]</th> <td>    0.1879</td> <td>    0.165</td> <td>    1.136</td> <td> 0.258</td> <td>   -0.139</td> <td>    0.515</td>
+</tr>
+<tr>
+  <th>persona_expenditure_bracket[T.3.1-4 Juta]</th> <td>    0.3332</td> <td>    0.238</td> <td>    1.397</td> <td> 0.164</td> <td>   -0.138</td> <td>    0.804</td>
+</tr>
+<tr>
+  <th>persona_expenditure_bracket[T.4.1-5 Juta]</th> <td>    0.6776</td> <td>    0.308</td> <td>    2.199</td> <td> 0.029</td> <td>    0.069</td> <td>    1.286</td>
+</tr>
+<tr>
+  <th>persona_expenditure_bracket[T.5.1-6 Juta]</th> <td>    0.5459</td> <td>    0.389</td> <td>    1.404</td> <td> 0.162</td> <td>   -0.222</td> <td>    1.314</td>
+</tr>
+<tr>
+  <th>persona_expenditure_bracket[T.6.1-7 Juta]</th> <td>    0.7261</td> <td>    0.480</td> <td>    1.511</td> <td> 0.133</td> <td>   -0.223</td> <td>    1.675</td>
+</tr>
+<tr>
+  <th>persona_expenditure_bracket[T.7.1-8 Juta]</th> <td>    0.7269</td> <td>    0.574</td> <td>    1.266</td> <td> 0.207</td> <td>   -0.407</td> <td>    1.861</td>
+</tr>
+<tr>
+  <th>persona_expenditure_bracket[T.> 8 Juta]</th>   <td>    1.1155</td> <td>    0.914</td> <td>    1.221</td> <td> 0.224</td> <td>   -0.689</td> <td>    2.920</td>
+</tr>
+<tr>
+  <th>persona_age</th>                               <td>    0.0006</td> <td>    0.003</td> <td>    0.184</td> <td> 0.854</td> <td>   -0.005</td> <td>    0.007</td>
+</tr>
+<tr>
+  <th>persona_income</th>                            <td>-2.131e-08</td> <td> 1.95e-08</td> <td>   -1.091</td> <td> 0.277</td> <td>-5.99e-08</td> <td> 1.73e-08</td>
+</tr>
+<tr>
+  <th>persona_financial_literacy</th>                <td>   -0.0100</td> <td>    0.056</td> <td>   -0.179</td> <td> 0.858</td> <td>   -0.120</td> <td>    0.100</td>
+</tr>
+<tr>
+  <th>persona_media_exposure</th>                    <td>   -0.0899</td> <td>    0.062</td> <td>   -1.460</td> <td> 0.146</td> <td>   -0.212</td> <td>    0.032</td>
+</tr>
+<tr>
+  <th>persona_risk_attitude</th>                     <td>    0.0019</td> <td>    0.020</td> <td>    0.093</td> <td> 0.926</td> <td>   -0.038</td> <td>    0.042</td>
+</tr>
+<tr>
+  <th>persona_expenditure</th>                       <td>-4.063e-08</td> <td> 7.88e-08</td> <td>   -0.515</td> <td> 0.607</td> <td>-1.96e-07</td> <td> 1.15e-07</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td> 5.113</td> <th>  Durbin-Watson:     </th> <td>   2.027</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.078</td> <th>  Jarque-Bera (JB):  </th> <td>   6.217</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td>-0.175</td> <th>  Prob(JB):          </th> <td>  0.0447</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 3.841</td> <th>  Cond. No.          </th> <td>3.87e+08</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.<br/>[2] The condition number is large, 3.87e+08. This might indicate that there are<br/>strong multicollinearity or other numerical problems.</pre>
+                    
+                    <h3>3.3 Model with Financial Literacy Interactions</h3>
+                    <pre><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+  <th>Dep. Variable:</th>    <td>expectation_change</td> <th>  R-squared:         </th> <td>   0.551</td>
+</tr>
+<tr>
+  <th>Model:</th>                    <td>OLS</td>        <th>  Adj. R-squared:    </th> <td>   0.522</td>
+</tr>
+<tr>
+  <th>Method:</th>              <td>Least Squares</td>   <th>  F-statistic:       </th> <td>   18.77</td>
+</tr>
+<tr>
+  <th>Date:</th>              <td>Sat, 16 Aug 2025</td>  <th>  Prob (F-statistic):</th> <td>4.10e-24</td>
+</tr>
+<tr>
+  <th>Time:</th>                  <td>05:47:12</td>      <th>  Log-Likelihood:    </th> <td> -117.24</td>
+</tr>
+<tr>
+  <th>No. Observations:</th>       <td>   180</td>       <th>  AIC:               </th> <td>   258.5</td>
+</tr>
+<tr>
+  <th>Df Residuals:</th>           <td>   168</td>       <th>  BIC:               </th> <td>   296.8</td>
+</tr>
+<tr>
+  <th>Df Model:</th>               <td>    11</td>       <th>                     </th>     <td> </td>   
+</tr>
+<tr>
+  <th>Covariance Type:</th>       <td>nonrobust</td>     <th>                     </th>     <td> </td>   
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+                      <td></td>                         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th>                                 <td>    0.0174</td> <td>    0.405</td> <td>    0.043</td> <td> 0.966</td> <td>   -0.781</td> <td>    0.816</td>
+</tr>
+<tr>
+  <th>treatment_current_inflation[T.True]</th>       <td>   -1.3273</td> <td>    0.520</td> <td>   -2.553</td> <td> 0.012</td> <td>   -2.354</td> <td>   -0.301</td>
+</tr>
+<tr>
+  <th>treatment_inflation_target[T.True]</th>        <td>   -0.4132</td> <td>    0.559</td> <td>   -0.739</td> <td> 0.461</td> <td>   -1.517</td> <td>    0.691</td>
+</tr>
+<tr>
+  <th>treatment_media_narrative[T.True]</th>         <td>   -0.3104</td> <td>    0.587</td> <td>   -0.529</td> <td> 0.598</td> <td>   -1.469</td> <td>    0.848</td>
+</tr>
+<tr>
+  <th>treatment_full_policy_context[T.True]</th>     <td>   -2.5351</td> <td>    0.564</td> <td>   -4.493</td> <td> 0.000</td> <td>   -3.649</td> <td>   -1.421</td>
+</tr>
+<tr>
+  <th>treatment_policy_rate_decision[T.True]</th>    <td>   -0.4555</td> <td>    0.555</td> <td>   -0.821</td> <td> 0.413</td> <td>   -1.551</td> <td>    0.640</td>
+</tr>
+<tr>
+  <th>persona_financial_literacy</th>                <td>    0.0206</td> <td>    0.070</td> <td>    0.294</td> <td> 0.769</td> <td>   -0.118</td> <td>    0.159</td>
+</tr>
+<tr>
+  <th>treatment_current_inflation_x_literacy</th>    <td>    0.0192</td> <td>    0.090</td> <td>    0.212</td> <td> 0.832</td> <td>   -0.159</td> <td>    0.197</td>
+</tr>
+<tr>
+  <th>treatment_inflation_target_x_literacy</th>     <td>   -0.0987</td> <td>    0.097</td> <td>   -1.017</td> <td> 0.311</td> <td>   -0.290</td> <td>    0.093</td>
+</tr>
+<tr>
+  <th>treatment_media_narrative_x_literacy</th>      <td>   -0.0587</td> <td>    0.104</td> <td>   -0.565</td> <td> 0.573</td> <td>   -0.264</td> <td>    0.146</td>
+</tr>
+<tr>
+  <th>treatment_full_policy_context_x_literacy</th>  <td>    0.1884</td> <td>    0.100</td> <td>    1.876</td> <td> 0.062</td> <td>   -0.010</td> <td>    0.387</td>
+</tr>
+<tr>
+  <th>treatment_policy_rate_decision_x_literacy</th> <td>   -0.0083</td> <td>    0.095</td> <td>   -0.087</td> <td> 0.931</td> <td>   -0.195</td> <td>    0.179</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Omnibus:</th>       <td> 6.522</td> <th>  Durbin-Watson:     </th> <td>   2.121</td>
+</tr>
+<tr>
+  <th>Prob(Omnibus):</th> <td> 0.038</td> <th>  Jarque-Bera (JB):  </th> <td>   7.509</td>
+</tr>
+<tr>
+  <th>Skew:</th>          <td>-0.281</td> <th>  Prob(JB):          </th> <td>  0.0234</td>
+</tr>
+<tr>
+  <th>Kurtosis:</th>      <td> 3.828</td> <th>  Cond. No.          </th> <td>    185.</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</pre>
+                    </div>
+                <div class="section">
+                    <h2>4. Heterogeneity Analysis</h2>
+                    <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>factor</th>
+      <th>group</th>
+      <th>treatment</th>
+      <th>effect</th>
+      <th>treatment_n</th>
+      <th>control_n</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>gender</td>
+      <td>Male</td>
+      <td>policy_rate_decision</td>
+      <td>-0.728571</td>
+      <td>7</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>gender</td>
+      <td>Male</td>
+      <td>full_policy_context</td>
+      <td>-1.471429</td>
+      <td>7</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>gender</td>
+      <td>Male</td>
+      <td>current_inflation</td>
+      <td>-1.333333</td>
+      <td>9</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>gender</td>
+      <td>Male</td>
+      <td>media_narrative</td>
+      <td>-0.755556</td>
+      <td>9</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>gender</td>
+      <td>Male</td>
+      <td>inflation_target</td>
+      <td>-1.088889</td>
+      <td>9</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>gender</td>
+      <td>Female</td>
+      <td>policy_rate_decision</td>
+      <td>-0.417391</td>
+      <td>23</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>gender</td>
+      <td>Female</td>
+      <td>full_policy_context</td>
+      <td>-1.543478</td>
+      <td>23</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>gender</td>
+      <td>Female</td>
+      <td>current_inflation</td>
+      <td>-1.171429</td>
+      <td>21</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>gender</td>
+      <td>Female</td>
+      <td>media_narrative</td>
+      <td>-0.576190</td>
+      <td>21</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>gender</td>
+      <td>Female</td>
+      <td>inflation_target</td>
+      <td>-0.909524</td>
+      <td>21</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>urban_rural</td>
+      <td>Urban</td>
+      <td>policy_rate_decision</td>
+      <td>-0.580882</td>
+      <td>16</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>urban_rural</td>
+      <td>Urban</td>
+      <td>full_policy_context</td>
+      <td>-1.280882</td>
+      <td>12</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>urban_rural</td>
+      <td>Urban</td>
+      <td>current_inflation</td>
+      <td>-1.269040</td>
+      <td>19</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>urban_rural</td>
+      <td>Urban</td>
+      <td>media_narrative</td>
+      <td>-0.653251</td>
+      <td>19</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>urban_rural</td>
+      <td>Urban</td>
+      <td>inflation_target</td>
+      <td>-1.029412</td>
+      <td>17</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>urban_rural</td>
+      <td>Rural</td>
+      <td>policy_rate_decision</td>
+      <td>-0.395604</td>
+      <td>14</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>urban_rural</td>
+      <td>Rural</td>
+      <td>full_policy_context</td>
+      <td>-1.660684</td>
+      <td>18</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>urban_rural</td>
+      <td>Rural</td>
+      <td>current_inflation</td>
+      <td>-1.174825</td>
+      <td>11</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>urban_rural</td>
+      <td>Rural</td>
+      <td>media_narrative</td>
+      <td>-0.629371</td>
+      <td>11</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>urban_rural</td>
+      <td>Rural</td>
+      <td>inflation_target</td>
+      <td>-0.884615</td>
+      <td>13</td>
+      <td>13</td>
+    </tr>
+  </tbody>
+</table>
+                </div>
+                
+                <div class="section">
+                    <h2>5. Conclusion</h2>
+                    <p>This report provides a comprehensive analysis of how different information treatments affect inflation expectations among Indonesian households. The experiment simulated responses from diverse demographic profiles to examine information effects and heterogeneity in updating behavior.</p>
+                </div>
+            </body>
+            </html>
+            
