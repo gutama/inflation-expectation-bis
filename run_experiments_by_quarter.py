@@ -1,5 +1,5 @@
 import pandas as pd
-from inflation_exp import ExperimentManager, DatabaseManager, ResultsExporter
+from inflation_exp_exclusive_treatment import ExperimentManager, DatabaseManager, ResultsExporter
 from datetime import datetime
 import os
 import json
@@ -9,7 +9,7 @@ db_path = 'data/inflation_study.db'
 db_manager = DatabaseManager(db_type="sqlite", db_path=db_path)
 
 # Load quarterly context data
-quarter_df = pd.read_csv('data/indonesia_quarterly_context_2018_2025.csv')
+quarter_df = pd.read_csv('data/indonesia_quarterly_context_updated.csv')
 
 # Directory to save results
 RESULTS_DIR = 'results'
@@ -19,6 +19,14 @@ all_results = []
 
 for idx, row in quarter_df.iterrows():
     quarter = row['quarter']
+
+    # Check if results for this quarter already exist
+    base_name = f'{quarter}_experiment_results'
+    existing = [f for f in os.listdir(RESULTS_DIR) if f.startswith(base_name) and f.endswith('.json')]
+    if existing:
+        print(f'Skipping {quarter}, results already exist.')
+        continue
+    
     print(f'Running experiment for quarter: {quarter}')
     # Prepare context dict for this quarter
     context = {
