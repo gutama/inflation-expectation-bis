@@ -1,0 +1,357 @@
+================================================================================
+BAYESIAN LEARNING ANALYSIS WITH WEBER ET AL. (2025) METHODOLOGY
+Tell Me Something I Don't Already Know: Learning in Low- and High-Inflation Settings
+================================================================================
+
+Loading data...
+
+Dataset shape: (5400, 11)
+Columns: ['quarter', 'persona_id', 'treatment_group', 'pre_treatment_expectation', 'post_treatment_expectation', 'expectation_change', 'pre_confidence', 'post_confidence', 'pre_reasoning', 'post_reasoning', 'persona']
+
+Parsing persona column...
+
+Data cleaning...
+Clean dataset shape: (5400, 27)
+
+Treatment groups: ['control' 'full_policy_context' 'current_inflation' 'media_narrative'
+ 'policy_rate_decision' 'inflation_target']
+
+Treatment counts:
+control                 900
+full_policy_context     900
+current_inflation       900
+media_narrative         900
+policy_rate_decision    900
+inflation_target        900
+Name: treatment_group, dtype: int64
+
+Treatment dummy variables: ['treat_control', 'treat_current_inflation', 'treat_full_policy_context', 'treat_inflation_target', 'treat_media_narrative', 'treat_policy_rate_decision']
+
+================================================================================
+WEBER ET AL. (2025) SPECIFICATION: EQUATION (1)
+================================================================================
+
+Model: posterior_i = α + β × prior_i + δ × I_i + γ × I_i × prior_i + error_i
+
+Where:
+  - I_i = treatment indicator
+  - β = slope for control group (baseline weight on priors)
+  - γ = change in slope for treatment group
+  - Scaled treatment effect = γ/β (key metric)
+
+Interpretation:
+  - γ/β ≈ 0: No learning from treatment (fully attentive)
+  - γ/β ≈ -1: Full learning from treatment (fully inattentive)
+  - |γ/β| measures degree of inattention
+
+================================================================================
+1. BASELINE MODEL: Control Group Only
+================================================================================
+
+Estimating β (baseline weight on priors)...
+
+Control Group Results:
+  β (slope on prior) = 0.7578 (SE = 0.0210)
+  R² = 0.5927
+  n = 900
+
+Interpretation:
+  → Moderate anchoring on priors
+
+================================================================================
+2. TREATMENT EFFECTS MODEL (Weber et al. Specification)
+================================================================================
+
+Formula: post_expectation ~ pre_expectation + treat_current_inflation + treat_current_inflation_x_prior + treat_full_policy_context + treat_full_policy_context_x_prior + treat_inflation_target + treat_inflation_target_x_prior + treat_media_narrative + treat_media_narrative_x_prior + treat_policy_rate_decision + treat_policy_rate_decision_x_prior
+
+Estimating with OLS...
+
+--------------------------------------------------------------------------------
+OLS Results:
+--------------------------------------------------------------------------------
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:       post_expectation   R-squared:                       0.432
+Model:                            OLS   Adj. R-squared:                  0.431
+Method:                 Least Squares   F-statistic:                     373.0
+Date:                Sun, 19 Oct 2025   Prob (F-statistic):               0.00
+Time:                        17:19:59   Log-Likelihood:                -5613.6
+No. Observations:                5400   AIC:                         1.125e+04
+Df Residuals:                    5388   BIC:                         1.133e+04
+Df Model:                          11
+Covariance Type:            nonrobust
+======================================================================================================
+                                         coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------------------------------
+Intercept                              1.3429      0.159      8.464      0.000       1.032       1.654
+pre_expectation                        0.7578      0.032     23.427      0.000       0.694       0.821
+treat_current_inflation                0.9037      0.220      4.113      0.000       0.473       1.334
+treat_current_inflation_x_prior       -0.4100      0.045     -9.100      0.000      -0.498      -0.322
+treat_full_policy_context              1.0698      0.220      4.865      0.000       0.639       1.501
+treat_full_policy_context_x_prior     -0.5002      0.045    -11.102      0.000      -0.589      -0.412
+treat_inflation_target                 1.6131      0.219      7.357      0.000       1.183       2.043
+treat_inflation_target_x_prior        -0.5413      0.045    -12.060      0.000      -0.629      -0.453
+treat_media_narrative                 -0.1294      0.218     -0.593      0.553      -0.557       0.299
+treat_media_narrative_x_prior         -0.0661      0.045     -1.481      0.139      -0.154       0.021
+treat_policy_rate_decision            -0.0032      0.224     -0.014      0.989      -0.443       0.436
+treat_policy_rate_decision_x_prior    -0.1097      0.046     -2.390      0.017      -0.200      -0.020
+==============================================================================
+Omnibus:                      881.687   Durbin-Watson:                   1.455
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1765.958
+Skew:                           0.990   Prob(JB):                         0.00
+Kurtosis:                       4.983   Cond. No.                         240.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+--------------------------------------------------------------------------------
+Robust Regression Results (Huber M-estimator):
+--------------------------------------------------------------------------------
+(Used in Weber et al. to reduce influence of outliers)
+                    Robust linear Model Regression Results
+==============================================================================
+Dep. Variable:       post_expectation   No. Observations:                 5400
+Model:                            RLM   Df Residuals:                     5388
+Method:                          IRLS   Df Model:                           11
+Norm:                          HuberT
+Scale Est.:                       mad
+Cov Type:                          H1
+Date:                Sun, 19 Oct 2025
+Time:                        17:19:59
+No. Iterations:                    33
+======================================================================================================
+                                         coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------------------------------
+Intercept                              1.1103      0.131      8.449      0.000       0.853       1.368
+pre_expectation                        0.8013      0.027     29.906      0.000       0.749       0.854
+treat_current_inflation                1.6602      0.182      9.122      0.000       1.303       2.017
+treat_current_inflation_x_prior       -0.5988      0.037    -16.045      0.000      -0.672      -0.526
+treat_full_policy_context              1.8387      0.182     10.095      0.000       1.482       2.196
+treat_full_policy_context_x_prior     -0.6848      0.037    -18.348      0.000      -0.758      -0.612
+treat_inflation_target                 1.9153      0.182     10.547      0.000       1.559       2.271
+treat_inflation_target_x_prior        -0.6039      0.037    -16.245      0.000      -0.677      -0.531
+treat_media_narrative                 -0.1800      0.181     -0.995      0.320      -0.534       0.174
+treat_media_narrative_x_prior         -0.0647      0.037     -1.749      0.080      -0.137       0.008
+treat_policy_rate_decision             0.1503      0.186      0.810      0.418      -0.213       0.514
+treat_policy_rate_decision_x_prior    -0.1335      0.038     -3.509      0.000      -0.208      -0.059
+======================================================================================================
+
+If the model instance has been used for another fit with different fit parameters, then the fit options might not be the correct ones anymore .
+
+================================================================================
+3. SCALED TREATMENT EFFECTS (γ/β) - KEY WEBER METRIC
+================================================================================
+
+--------------------------------------------------------------------------------
+SCALED TREATMENT EFFECTS (γ/β)
+--------------------------------------------------------------------------------
+
+This table shows the KEY METRIC from Weber et al. (2025):
+  γ/β = How much flatter is the prior-posterior slope for treated agents?
+
+
+           treatment     beta     gamma     delta  scaled_effect  se_scaled  ci_lower  ci_upper   pval_gamma   pval_delta   n
+   current_inflation 0.757842 -0.410049  0.903699      -0.541075   0.063785 -0.666093 -0.416057 1.242983e-19 3.967189e-05 900
+ full_policy_context 0.757842 -0.500232  1.069842      -0.660074   0.065795 -0.789033 -0.531116 2.490561e-28 1.177857e-06 900
+    inflation_target 0.757842 -0.541320  1.613122      -0.714291   0.066613 -0.844853 -0.583729 4.540017e-33 2.157468e-13 900
+     media_narrative 0.757842 -0.066145 -0.129431      -0.087281   0.059053 -0.203025  0.028463 1.386745e-01 5.533324e-01 900
+policy_rate_decision 0.757842 -0.109742 -0.003212      -0.144809   0.060910 -0.264192 -0.025426 1.689256e-02 9.885665e-01 900
+
+
+INTERPRETATION GUIDE:
+--------------------------------------------------------------------------------
+
+CURRENT_INFLATION:
+  γ/β = -0.541
+  → MODERATELY INATTENTIVE - Moderate treatment effect
+  → Substantial learning from treatment (intensive margin)
+  → Statistical significance: ***
+
+FULL_POLICY_CONTEXT:
+  γ/β = -0.660
+  → HIGHLY INATTENTIVE - Large treatment effect
+  → Agents placed high weight on new information
+  → Statistical significance: ***
+
+INFLATION_TARGET:
+  γ/β = -0.714
+  → HIGHLY INATTENTIVE - Large treatment effect
+  → Agents placed high weight on new information
+  → Statistical significance: ***
+
+MEDIA_NARRATIVE:
+  γ/β = -0.087
+  → FULLY ATTENTIVE - Treatment had minimal effect
+  → Agents already knew this information (extensive margin)
+  → Statistical significance: not significant
+
+POLICY_RATE_DECISION:
+  γ/β = -0.145
+  → HIGHLY ATTENTIVE - Small treatment effect
+  → Most agents somewhat informed before treatment
+  → Statistical significance: **
+
+================================================================================
+4. DECOMPOSITION: Intensive vs Extensive Margins
+================================================================================
+
+Following Weber et al. Proposition 2:
+  γ/β = - [Var(π|S_i) / (Var(π|S_i) + σ²_νp)] × 1{S_p ∉ S_i}
+
+This decomposes into:
+  1. INTENSIVE MARGIN: Kalman gain [Var(π|S_i) / (Var(π|S_i) + σ²_νp)]
+     - How strongly do uninformed agents respond?
+  2. EXTENSIVE MARGIN: 1{S_p ∉ S_i}
+     - Share of agents who didn't already know the signal
+
+
+APPROXIMATE EXTENSIVE MARGIN (Share Already Informed):
+--------------------------------------------------------------------------------
+Method: Count agents with zero expectation change in each treatment
+
+current_inflation:
+  No change (|Δ| < 0.01%): 144/900 (16.0%)
+  Small change (|Δ| < 0.5%): 223/900 (24.8%)
+  → Estimated share already informed: ~16.0%
+
+full_policy_context:
+  No change (|Δ| < 0.01%): 113/900 (12.6%)
+  Small change (|Δ| < 0.5%): 187/900 (20.8%)
+  → Estimated share already informed: ~12.6%
+
+inflation_target:
+  No change (|Δ| < 0.01%): 149/900 (16.6%)
+  Small change (|Δ| < 0.5%): 226/900 (25.1%)
+  → Estimated share already informed: ~16.6%
+
+media_narrative:
+  No change (|Δ| < 0.01%): 252/900 (28.0%)
+  Small change (|Δ| < 0.5%): 324/900 (36.0%)
+  → Estimated share already informed: ~28.0%
+
+policy_rate_decision:
+  No change (|Δ| < 0.01%): 296/900 (32.9%)
+  Small change (|Δ| < 0.5%): 409/900 (45.4%)
+  → Estimated share already informed: ~32.9%
+
+
+================================================================================
+5. SIGNAL PRECISION ANALYSIS (Confidence Changes)
+================================================================================
+
+Weber et al. test whether treatments increase confidence
+(indicating signal perceived as precise/informative)
+
+control:
+  Mean confidence change: -0.0011
+  t-statistic: -0.0916
+  p-value: 0.9270
+  → No significant confidence change (signal not perceived as precise)
+
+full_policy_context:
+  Mean confidence change: 0.0644
+  t-statistic: 4.6372
+  p-value: 0.0000 ***
+  → No significant confidence change (signal not perceived as precise)
+
+current_inflation:
+  Mean confidence change: 0.0122
+  t-statistic: 0.9134
+  p-value: 0.3613
+  → No significant confidence change (signal not perceived as precise)
+
+media_narrative:
+  Mean confidence change: 0.1589
+  t-statistic: 10.4716
+  p-value: 0.0000 ***
+  → Confidence increased (signal perceived as informative)
+
+policy_rate_decision:
+  Mean confidence change: 0.1656
+  t-statistic: 11.5467
+  p-value: 0.0000 ***
+  → Confidence increased (signal perceived as informative)
+
+inflation_target:
+  Mean confidence change: -0.0178
+  t-statistic: -1.3727
+  p-value: 0.1702
+  → No significant confidence change (signal not perceived as precise)
+
+
+================================================================================
+6. THEORETICAL MECHANISMS (Weber et al. Proposition 4)
+================================================================================
+
+Why might |γ/β| vary across treatments?
+
+1. UNCERTAINTY (σ²_π): Higher inflation volatility → more attention
+   - Agents process more information when stakes are higher
+   - Would predict: |γ/β| decreases with inflation variance
+
+2. PERSISTENCE (ρ): More persistent inflation → more attention
+   - Current inflation more informative about future
+   - Would predict: |γ/β| decreases with inflation persistence
+
+3. CREDIBILITY (σ²_νp): Less trust in signal → less response
+   - Agents discount noisy/unreliable signals
+   - Would predict: |γ/β| decreases with perceived noise
+
+4. COST OF INFORMATION (φ or ω): Lower cost → more attention
+   - Easier access to information → more people already know
+   - Would predict: |γ/β| decreases with information supply
+
+================================================================================
+VISUALIZATIONS
+================================================================================
+
+Saved: results/bayesian_weber/scaled_treatment_effects.png
+Saved: results/bayesian_weber/prior_posterior_by_treatment.png
+Saved: results/bayesian_weber/weber_framework_decomposition.png
+
+================================================================================
+ANALYSIS COMPLETE!
+================================================================================
+
+Key Findings (Weber et al. Framework):
+--------------------------------------------------------------------------------
+
+1. SCALED TREATMENT EFFECTS (γ/β):
+   current_inflation: -0.541 (***)
+   full_policy_context: -0.660 (***)
+   inflation_target: -0.714 (***)
+   media_narrative: -0.087 (ns)
+   policy_rate_decision: -0.145 (**)
+
+2. INTERPRETATION:
+   → Overall: MODERATE ATTENTION (mixed information)
+
+3. THEORETICAL MECHANISMS:
+   Based on Weber et al. Proposition 4, variation in |γ/β| could reflect:
+   - Differences in prior uncertainty across treatment types
+   - Varying credibility of different information sources
+   - Heterogeneous costs of acquiring different types of information
+
+4. POLICY IMPLICATIONS:
+   → Communication opportunity: Agents responsive to new information
+   → Information provision can effectively anchor expectations
+
+All results saved to: results/bayesian_weber/
+================================================================================
+
+================================================================================
+REFERENCES
+================================================================================
+
+Weber, M., Candia, B., Afrouzi, H., Ropele, T., Lluberas, R., Frache, S.,
+Meyer, B., Kumar, S., Gorodnichenko, Y., Georgarakos, D., Coibion, O.,
+Kenny, G., & Ponce, J. (2025). Tell Me Something I Don't Already Know:
+Learning in Low- and High-Inflation Settings. Econometrica, 93(1), 229-264.
+
+Key Equations:
+  - Equation (1): posterior = α + β×prior + δ×I + γ×I×prior + ε
+  - Equation (3): γ/β = -[Var(π|Si)/(Var(π|Si)+σ²νp)] × 1{Sp∉Si}
+  - Proposition 4: ∂|γ/β|/∂ρ < 0, ∂|γ/β|/∂σ²νp > 0, etc.
+================================================================================
+PS D:\newrepo\inflation-expectation-bis> 

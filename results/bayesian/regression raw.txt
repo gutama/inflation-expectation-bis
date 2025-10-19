@@ -1,0 +1,429 @@
+Loading data...
+
+Dataset shape: (5400, 11)
+Columns: ['quarter', 'persona_id', 'treatment_group', 'pre_treatment_expectation', 'post_treatment_expectation', 'expectation_change', 'pre_confidence', 'post_confidence', 'pre_reasoning', 'post_reasoning', 'persona']
+
+Parsing persona column...
+
+Data cleaning...
+Clean dataset shape: (5400, 27)
+
+Treatment groups: ['control' 'full_policy_context' 'current_inflation' 'media_narrative'
+ 'policy_rate_decision' 'inflation_target']
+
+Treatment counts:
+control                 900
+full_policy_context     900
+current_inflation       900
+media_narrative         900
+policy_rate_decision    900
+inflation_target        900
+Name: treatment_group, dtype: int64
+
+Treatment dummy variables: ['treat_control', 'treat_current_inflation', 'treat_full_policy_context', 'treat_inflation_target', 'treat_media_narrative', 'treat_policy_rate_decision']
+
+================================================================================
+SUMMARY STATISTICS
+================================================================================
+
+        pre_expectation  post_expectation   exp_change     pre_conf    post_conf  conf_change
+count      5400.000000       5400.000000  5400.000000  5400.000000  5400.000000  5400.000000
+mean          4.811852          4.262889    -0.548963     5.722222     5.785926     0.063704
+std           0.723477          0.908294     0.910100     0.917744     0.874250     0.416835
+min           3.200000          2.000000    -3.500000     4.000000     4.000000    -1.000000
+25%           4.200000          3.500000    -1.000000     5.000000     5.000000     0.000000
+50%           5.000000          4.000000    -0.300000     6.000000     6.000000     0.000000
+75%           5.000000          5.000000     0.000000     6.000000     6.000000     0.000000
+max           7.500000          7.500000     2.000000     8.000000     8.000000     1.000000
+
+
+By Treatment Group:
+--------------------------------------------------------------------------------
+
+CURRENT_INFLATION (n=900):
+      pre_expectation  post_expectation  exp_change  pre_conf  post_conf  conf_change
+mean         4.791333          3.913000   -0.878333  5.723333   5.735556     0.012222
+std          0.728425          0.827017    0.919500  0.902419   0.869110     0.401423
+
+FULL_POLICY_CONTEXT (n=900):
+      pre_expectation  post_expectation  exp_change  pre_conf  post_conf  conf_change
+mean         4.799778          3.649222   -1.150556  5.771111   5.835556     0.064444
+std          0.728416          0.883245    1.018499  0.952048   0.878404     0.416915
+
+INFLATION_TARGET (n=900):
+      pre_expectation  post_expectation  exp_change  pre_conf  post_conf  conf_change
+mean         4.807667          3.997000   -0.810667  5.713333   5.695556    -0.017778
+std          0.734315          0.476432    0.729863  0.884950   0.859794     0.388539
+
+MEDIA_NARRATIVE (n=900):
+      pre_expectation  post_expectation  exp_change  pre_conf  post_conf  conf_change
+mean         4.813556          4.543000   -0.270556  5.695556   5.854444     0.158889
+std          0.741908          0.977765    0.863130  0.899006   0.796218     0.455200
+
+POLICY_RATE_DECISION (n=900):
+      pre_expectation  post_expectation  exp_change  pre_conf  post_conf  conf_change
+mean         4.805111          4.453889   -0.351222  5.720000   5.885556     0.165556
+std          0.700990          0.750318    0.646087  0.943003   0.879385     0.430139
+
+CONTROL (n=900):
+      pre_treatment_expectation  post_treatment_expectation  expectation_change  pre_confidence  post_confidence
+mean                   4.853667                    5.021222            0.167556        5.710000         5.708889
+std                    0.706271                    0.695260            0.475557        0.923859         0.939629
+
+================================================================================
+CONFIDENCE ANALYSIS: Testing for Perceived Signal Precision
+================================================================================
+
+1. Within-Treatment Confidence Changes (Paired t-tests):
+--------------------------------------------------------------------------------
+
+control:
+  Mean confidence change: -0.0011
+  t-statistic: -0.0916
+  p-value: 0.9270
+  n = 900
+
+full_policy_context:
+  Mean confidence change: 0.0644
+  t-statistic: 4.6372
+  p-value: 0.0000 ***
+  n = 900
+
+current_inflation:
+  Mean confidence change: 0.0122
+  t-statistic: 0.9134
+  p-value: 0.3613
+  n = 900
+
+media_narrative:
+  Mean confidence change: 0.1589
+  t-statistic: 10.4716
+  p-value: 0.0000 ***
+  n = 900
+
+policy_rate_decision:
+  Mean confidence change: 0.1656
+  t-statistic: 11.5467
+  p-value: 0.0000 ***
+  n = 900
+
+inflation_target:
+  Mean confidence change: -0.0178
+  t-statistic: -1.3727
+  p-value: 0.1702
+  n = 900
+
+
+2. Between-Treatment Confidence Changes (vs Control):
+--------------------------------------------------------------------------------
+
+full_policy_context vs control:
+  Difference in confidence change: 0.0656
+  t-statistic: 3.5542
+  p-value: 0.0004 ***
+
+current_inflation vs control:
+  Difference in confidence change: 0.0133
+  t-statistic: 0.7383
+  p-value: 0.4604
+
+media_narrative vs control:
+  Difference in confidence change: 0.1600
+  t-statistic: 8.2371
+  p-value: 0.0000 ***
+
+policy_rate_decision vs control:
+  Difference in confidence change: 0.1667
+  t-statistic: 8.8751
+  p-value: 0.0000 ***
+
+inflation_target vs control:
+  Difference in confidence change: -0.0167
+  t-statistic: -0.9393
+  p-value: 0.3477
+
+================================================================================
+BAYESIAN LEARNING TESTS
+================================================================================
+
+1. BASELINE MODEL (No Controls)
+--------------------------------------------------------------------------------
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:       post_expectation   R-squared:                       0.402
+Model:                            OLS   Adj. R-squared:                  0.401
+Method:                 Least Squares   F-statistic:                     604.4
+Date:                Sun, 19 Oct 2025   Prob (F-statistic):               0.00
+Time:                        16:39:26   Log-Likelihood:                -5753.8
+No. Observations:                5400   AIC:                         1.152e+04
+Df Residuals:                    5393   BIC:                         1.157e+04
+Df Model:                           6
+Covariance Type:            nonrobust
+==============================================================================================
+                                 coef    std err          t      P>|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------------
+Intercept                      2.6799      0.068     39.221      0.000       2.546       2.814
+pre_expectation                0.4824      0.013     36.477      0.000       0.456       0.508
+treat_current_inflation       -1.0782      0.033    -32.535      0.000      -1.143      -1.013
+treat_full_policy_context     -1.3460      0.033    -40.621      0.000      -1.411      -1.281
+treat_inflation_target        -1.0020      0.033    -30.243      0.000      -1.067      -0.937
+treat_media_narrative         -0.4589      0.033    -13.850      0.000      -0.524      -0.394
+treat_policy_rate_decision    -0.5439      0.033    -16.416      0.000      -0.609      -0.479
+==============================================================================
+Omnibus:                      598.397   Durbin-Watson:                   1.492
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              947.518
+Skew:                           0.795   Prob(JB):                    1.77e-206
+Kurtosis:                       4.297   Cond. No.                         38.9
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+2. BAYESIAN LEARNING MODEL (Prior × Treatment Interactions)
+--------------------------------------------------------------------------------
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:       post_expectation   R-squared:                       0.432
+Model:                            OLS   Adj. R-squared:                  0.431
+Method:                 Least Squares   F-statistic:                     373.0
+Date:                Sun, 19 Oct 2025   Prob (F-statistic):               0.00
+Time:                        16:39:26   Log-Likelihood:                -5613.6
+No. Observations:                5400   AIC:                         1.125e+04
+Df Residuals:                    5388   BIC:                         1.133e+04
+Df Model:                          11
+Covariance Type:            nonrobust
+======================================================================================================
+                                         coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------------------------------
+Intercept                              1.3429      0.159      8.464      0.000       1.032       1.654
+pre_expectation                        0.7578      0.032     23.427      0.000       0.694       0.821
+treat_current_inflation                0.9037      0.220      4.113      0.000       0.473       1.334
+treat_current_inflation_x_prior       -0.4100      0.045     -9.100      0.000      -0.498      -0.322
+treat_full_policy_context              1.0698      0.220      4.865      0.000       0.639       1.501
+treat_full_policy_context_x_prior     -0.5002      0.045    -11.102      0.000      -0.589      -0.412
+treat_inflation_target                 1.6131      0.219      7.357      0.000       1.183       2.043
+treat_inflation_target_x_prior        -0.5413      0.045    -12.060      0.000      -0.629      -0.453
+treat_media_narrative                 -0.1294      0.218     -0.593      0.553      -0.557       0.299
+treat_media_narrative_x_prior         -0.0661      0.045     -1.481      0.139      -0.154       0.021
+treat_policy_rate_decision            -0.0032      0.224     -0.014      0.989      -0.443       0.436
+treat_policy_rate_decision_x_prior    -0.1097      0.046     -2.390      0.017      -0.200      -0.020
+==============================================================================
+Omnibus:                      881.687   Durbin-Watson:                   1.455
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1765.958
+Skew:                           0.990   Prob(JB):                         0.00
+Kurtosis:                       4.983   Cond. No.                         240.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+
+Interpretation of Prior × Treatment Interactions:
+------------------------------------------------------------
+Positive coefficient: Treatment increases weight on prior (more anchoring)
+Negative coefficient: Treatment decreases weight on prior (more updating)
+Near-zero coefficient: Treatment doesn't affect Bayesian updating
+
+CURRENT_INFLATION:
+  Coefficient: -0.4100 ***
+  p-value: 0.0000
+  → Reduces anchoring to prior beliefs (more updating)
+
+FULL_POLICY_CONTEXT:
+  Coefficient: -0.5002 ***
+  p-value: 0.0000
+  → Reduces anchoring to prior beliefs (more updating)
+
+INFLATION_TARGET:
+  Coefficient: -0.5413 ***
+  p-value: 0.0000
+  → Reduces anchoring to prior beliefs (more updating)
+
+MEDIA_NARRATIVE:
+  Coefficient: -0.0661
+  p-value: 0.1387
+  → Reduces anchoring to prior beliefs (more updating)
+
+POLICY_RATE_DECISION:
+  Coefficient: -0.1097 **
+  p-value: 0.0169
+  → Reduces anchoring to prior beliefs (more updating)
+
+
+3. WITH DEMOGRAPHIC CONTROLS
+--------------------------------------------------------------------------------
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:       post_expectation   R-squared:                       0.406
+Model:                            OLS   Adj. R-squared:                  0.404
+Method:                 Least Squares   F-statistic:                     245.2
+Date:                Sun, 19 Oct 2025   Prob (F-statistic):               0.00
+Time:                        16:39:26   Log-Likelihood:                -5736.6
+No. Observations:                5400   AIC:                         1.151e+04
+Df Residuals:                    5384   BIC:                         1.161e+04
+Df Model:                          15
+Covariance Type:            nonrobust
+==============================================================================================
+                                 coef    std err          t      P>|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------------
+Intercept                      2.9362      0.163     18.019      0.000       2.617       3.256
+pre_expectation                0.4442      0.015     28.978      0.000       0.414       0.474
+treat_current_inflation       -1.0802      0.033    -32.644      0.000      -1.145      -1.015
+treat_full_policy_context     -1.3459      0.033    -40.677      0.000      -1.411      -1.281
+treat_inflation_target        -1.0033      0.033    -30.301      0.000      -1.068      -0.938
+treat_media_narrative         -0.4626      0.033    -13.982      0.000      -0.527      -0.398
+treat_policy_rate_decision    -0.5437      0.033    -16.440      0.000      -0.609      -0.479
+age                           -0.0004      0.001     -0.518      0.604      -0.002       0.001
+financial_literacy            -0.0211      0.014     -1.507      0.132      -0.049       0.006
+media_exposure                 0.0065      0.016      0.415      0.678      -0.024       0.037
+risk_attitude                 -0.0032      0.005     -0.599      0.549      -0.014       0.007
+female                        -0.0096      0.020     -0.487      0.626      -0.048       0.029
+urban                         -0.0209      0.041     -0.510      0.610      -0.101       0.059
+edu_Diploma                    0.0282      0.042      0.667      0.505      -0.055       0.111
+edu_Masters_Degree            -0.0225      0.056     -0.404      0.686      -0.132       0.087
+edu_Senior_High_School         0.0944      0.050      1.876      0.061      -0.004       0.193
+==============================================================================
+Omnibus:                      600.635   Durbin-Watson:                   1.476
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              953.606
+Skew:                           0.797   Prob(JB):                    8.46e-208
+Kurtosis:                       4.304   Cond. No.                         771.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+4. BAYESIAN LEARNING WITH CONTROLS (Prior × Treatment + Demographics)
+--------------------------------------------------------------------------------
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:       post_expectation   R-squared:                       0.436
+Model:                            OLS   Adj. R-squared:                  0.434
+Method:                 Least Squares   F-statistic:                     207.9
+Date:                Sun, 19 Oct 2025   Prob (F-statistic):               0.00
+Time:                        16:39:26   Log-Likelihood:                -5596.1
+No. Observations:                5400   AIC:                         1.123e+04
+Df Residuals:                    5379   BIC:                         1.137e+04
+Df Model:                          20
+Covariance Type:            nonrobust
+======================================================================================================
+                                         coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------------------------------
+Intercept                              1.6264      0.212      7.654      0.000       1.210       2.043
+pre_expectation                        0.7179      0.033     21.658      0.000       0.653       0.783
+treat_current_inflation                0.9011      0.219      4.106      0.000       0.471       1.331
+treat_current_inflation_x_prior       -0.4099      0.045     -9.110      0.000      -0.498      -0.322
+treat_full_policy_context              1.0678      0.220      4.863      0.000       0.637       1.498
+treat_full_policy_context_x_prior     -0.4998      0.045    -11.111      0.000      -0.588      -0.412
+treat_inflation_target                 1.5976      0.219      7.298      0.000       1.168       2.027
+treat_inflation_target_x_prior        -0.5383      0.045    -12.015      0.000      -0.626      -0.450
+treat_media_narrative                 -0.1442      0.218     -0.662      0.508      -0.571       0.283
+treat_media_narrative_x_prior         -0.0638      0.045     -1.432      0.152      -0.151       0.024
+treat_policy_rate_decision            -0.0010      0.224     -0.004      0.997      -0.440       0.438
+treat_policy_rate_decision_x_prior    -0.1102      0.046     -2.403      0.016      -0.200      -0.020
+age                                   -0.0004      0.001     -0.494      0.622      -0.002       0.001
+financial_literacy                    -0.0243      0.014     -1.781      0.075      -0.051       0.002
+media_exposure                         0.0077      0.015      0.506      0.613      -0.022       0.038
+risk_attitude                         -0.0031      0.005     -0.610      0.542      -0.013       0.007
+female                                -0.0062      0.019     -0.324      0.746      -0.044       0.031
+urban                                 -0.0295      0.040     -0.741      0.459      -0.108       0.049
+edu_Diploma                            0.0228      0.041      0.553      0.580      -0.058       0.103
+edu_Masters_Degree                    -0.0209      0.054     -0.385      0.700      -0.127       0.085
+edu_Senior_High_School                 0.0861      0.049      1.754      0.079      -0.010       0.182
+==============================================================================
+Omnibus:                      882.068   Durbin-Watson:                   1.437
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             1776.889
+Skew:                           0.988   Prob(JB):                         0.00
+Kurtosis:                       4.999   Cond. No.                     1.96e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.96e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+
+Comparison of Models:
+================================================================================
+
+========================================================================================
+                                    Baseline  With Interactions With Controls Full Model
+----------------------------------------------------------------------------------------
+Intercept                          2.6799***  1.3429***         2.9362***     1.6264***
+                                   (0.0683)   (0.1587)          (0.1630)      (0.2125)
+R-squared                          0.4021     0.4323            0.4059        0.4360
+R-squared Adj.                     0.4014     0.4312            0.4042        0.4339
+age                                                             -0.0004       -0.0004
+                                                                (0.0008)      (0.0007)
+edu_Diploma                                                     0.0282        0.0228
+                                                                (0.0422)      (0.0412)
+edu_Masters_Degree                                              -0.0225       -0.0209
+                                                                (0.0556)      (0.0542)
+edu_Senior_High_School                                          0.0944*       0.0861*
+                                                                (0.0503)      (0.0491)
+female                                                          -0.0096       -0.0062
+                                                                (0.0197)      (0.0192)
+financial_literacy                                              -0.0211       -0.0243*
+                                                                (0.0140)      (0.0137)
+media_exposure                                                  0.0065        0.0077
+                                                                (0.0156)      (0.0152)
+pre_expectation                    0.4824***  0.7578***         0.4442***     0.7179***
+                                   (0.0132)   (0.0323)          (0.0153)      (0.0331)
+risk_attitude                                                   -0.0032       -0.0031
+                                                                (0.0053)      (0.0052)
+treat_current_inflation            -1.0782*** 0.9037***         -1.0802***    0.9011***
+                                   (0.0331)   (0.2197)          (0.0331)      (0.2195)
+treat_current_inflation_x_prior               -0.4100***                      -0.4099***
+                                              (0.0451)                        (0.0450)
+treat_full_policy_context          -1.3460*** 1.0698***         -1.3459***    1.0678***
+                                   (0.0331)   (0.2199)          (0.0331)      (0.2196)
+treat_full_policy_context_x_prior             -0.5002***                      -0.4998***
+                                              (0.0451)                        (0.0450)
+treat_inflation_target             -1.0020*** 1.6131***         -1.0033***    1.5976***
+                                   (0.0331)   (0.2193)          (0.0331)      (0.2189)
+treat_inflation_target_x_prior                -0.5413***                      -0.5383***
+                                              (0.0449)                        (0.0448)
+treat_media_narrative              -0.4589*** -0.1294           -0.4626***    -0.1442
+                                   (0.0331)   (0.2183)          (0.0331)      (0.2179)
+treat_media_narrative_x_prior                 -0.0661                         -0.0638
+                                              (0.0447)                        (0.0446)
+treat_policy_rate_decision         -0.5439*** -0.0032           -0.5437***    -0.0010
+                                   (0.0331)   (0.2241)          (0.0331)      (0.2238)
+treat_policy_rate_decision_x_prior            -0.1097**                       -0.1102**
+                                              (0.0459)                        (0.0459)
+urban                                                           -0.0209       -0.0295
+                                                                (0.0409)      (0.0399)
+N                                  5400       5400              5400          5400
+R-squared                          0.4021     0.4323            0.4059        0.4360
+========================================================================================
+Standard errors in parentheses.
+* p<.1, ** p<.05, ***p<.01
+
+================================================================================
+CREATING VISUALIZATIONS
+================================================================================
+
+Saved scatter plots to: results/bayesian/bayesian_learning_scatter.png
+Saved confidence analysis to: results/bayesian/confidence_precision_analysis.png
+Saved coefficient plot to: results/bayesian/bayesian_learning_coefficients.png
+
+================================================================================
+ANALYSIS COMPLETE!
+================================================================================
+
+Key Findings:
+--------------------------------------------------------------------------------
+
+1. CONFIDENCE/PRECISION:
+   - Check if any treatment significantly increased confidence
+   - Near-zero changes suggest signals not perceived as precise
+
+2. BAYESIAN LEARNING:
+   - Prior coefficient shows baseline anchoring
+   - Treatment × Prior interactions show if treatments affect updating
+   - Near-zero interactions = no effect on Bayesian learning
+
+3. INTERPRETATION:
+   - Flat confidence + minimal interactions → Persistent ambiguity
+   - Not classic Bayesian learning from high-precision signals
+   
+   
