@@ -54,8 +54,7 @@ df = pd.concat([df, persona_df], axis=1)
 
 # Feature engineering
 feature_cols = ['age', 'income', 'financial_literacy', 'media_exposure', 
-                'risk_attitude', 'expenditure', 'pre_treatment_expectation', 
-                'pre_confidence']
+                'risk_attitude', 'expenditure']
 
 # Create dummies for categorical
 categorical_cols = ['gender', 'education', 'region', 'urban_rural']
